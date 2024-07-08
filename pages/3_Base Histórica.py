@@ -1,21 +1,20 @@
 import streamlit as st
 import ipeadatapy as ipea
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
 
 st.title('Análise base histórica')
 
 # Criação das abas
-tab1, tab2, tab3 = st.tabs(["Valor x Ano", "Refazer 1", "Refazer 2"])
-
+tab1, tab2, tab3 = st.tabs(["Valor x Ano", "Picos de Aumento e Diminuição", "Métricas Estatísticas dos Preços do Petróleo"])
 
 # Conteúdo da aba "Valor x Ano"
 with tab1:
-    
     st.markdown("""
-    # Valor x Ano - Base Histórica
     Este gráfico de dispersão revela uma fascinante relação entre os anos e os valores em dólares americanos (US$), oferecendo uma visão intrigante sobre tendências e flutuações econômicas ao longo do tempo. Aqui estão os pontos mais interessantes:
     """)
+    
     col1, col2 = st.columns([1, 2])  # Dividir a aba em duas colunas, com a segunda coluna maior
 
     with col1:
@@ -76,9 +75,147 @@ with tab1:
     Em resumo, este gráfico não apenas mostra números, mas conta uma história rica e dinâmica sobre a evolução dos valores ao longo do tempo. Ele nos oferece uma janela para entender as forças que moldam os mercados e a economia, destacando momentos de crescimento, estabilidade e transformação.
     """)
 
-# Conteúdo das abas "Refazer 1" e "Refazer 2" pode ser adicionado conforme necessário
+# Conteúdo da aba "Picos de Aumento e Diminuição"
 with tab2:
-    st.write("Conteúdo para Refazer 1")
+    st.markdown("""
+    O gráfico ilustra a fascinante evolução dos preços ao longo de várias décadas, destacando momentos marcantes de aumentos e quedas abruptas. 
+    Este gráfico oferece uma janela para o passado, ajudando-nos a entender como eventos globais moldam os preços e, consequentemente, a economia. Ele também nos dá uma perspectiva valiosa para prever futuras tendências, preparando-nos para navegar pelas inevitáveis flutuações do mercado.
+    """)
+    col1, col2 = st.columns([1, 2])  # Dividir a aba em duas colunas, com a segunda coluna maior
+    with col1:
+        with st.expander("Evolução dos Preços"):
+             st.markdown("""Desde 1988, os preços mostraram uma trajetória cheia de altos e baixos. Notamos uma ascensão constante até 2008, seguida por uma queda drástica. Esse padrão se repete em outras ocasiões, refletindo a volatilidade inerente ao mercado.
+                         """)
+        st.markdown('<h1 style="font-family:Arial; font-size:20px; color:Back;">Picos Memoráveis:</h1>', unsafe_allow_html=True)
+        with st.expander("2008 - O Grande Salto"):
+             st.markdown("""Ponto Verde: Em 2008, os preços atingiram um ápice impressionante de aproximadamente 140 US$. Esse pico coincide com a crise financeira global, marcada pela bolha imobiliária e a subsequente recessão. Foi um período de grande incerteza econômica que inflacionou os preços de maneira significativa.
+                         """)    
+        with st.expander("1998 - A Grande Queda"):
+             st.markdown("""Ponto Vermelho: O gráfico destaca uma queda acentuada em 1998, onde os preços despencaram para cerca de 10 US$. Este período pode estar associado a crises econômicas regionais ou outros eventos adversos que afetaram drasticamente o mercado.
+                         """)     
+        with st.expander("2020 - Impacto da Pandemia"):
+             st.markdown("""Outro Ponto Vermelho: Em 2020, os preços caíram novamente, refletindo o impacto severo da pandemia de COVID-19. A pandemia trouxe uma desaceleração econômica global, afetando todos os setores de maneira significativa.
+                         """)  
+    with col2: 
+        with st.expander("Cores - Gráfico"):
+             st.markdown(""" - Azul: Representa a linha do preço ao longo do tempo.""")
+             st.markdown(""" - Verde: Indica os maiores picos de aumento.""")
+             st.markdown(""" - Vermelho: Sinaliza os maiores picos de diminuição.""")
 
+        # Obter os dados
+        babacu = ipea.timeseries('EIA366_PBRENT366')
+
+        # Resetar o índice para usar a coluna de datas
+        babacu = babacu.reset_index()
+
+        # Certificar que a coluna 'DATE' está no formato de datetime
+        babacu['DATE'] = pd.to_datetime(babacu['DATE'])
+
+        # Ordenar os dados por data
+        babacu = babacu.sort_values(by='DATE')
+
+        # Extrair valores e datas
+        values = babacu['VALUE (US$)'].values
+        dates = babacu['DATE'].values
+
+        # Identificar picos de alta e baixa
+        picos_aumento_indices = np.argwhere((values > np.roll(values, 1)) & (values > np.roll(values, -1))).flatten()
+        picos_diminuicao_indices = np.argwhere((values < np.roll(values, 1)) & (values < np.roll(values, -1))).flatten()
+
+        # Selecionar os 3 maiores picos de aumento
+        top_3_increase_indices = picos_aumento_indices[np.argsort(values[picos_aumento_indices])[-3:]]
+
+        # Selecionar os 3 maiores picos de diminuição
+        top_3_decrease_indices = picos_diminuicao_indices[np.argsort(values[picos_diminuicao_indices])[:3]]
+
+        # Extrair os anos correspondentes aos picos de aumento e diminuição
+        years = babacu['DATE'].dt.year.values
+
+        # Selecionar os anos dos 3 maiores picos de aumento
+        top_3_increase_years = years[top_3_increase_indices]
+
+        # Selecionar os anos dos 3 maiores picos de diminuição
+        top_3_decrease_years = years[top_3_decrease_indices]
+
+        # Plotar gráfico de linha
+        fig2, ax2 = plt.subplots(figsize=(14, 7))
+        ax2.plot(babacu['DATE'], babacu['VALUE (US$)'], label='Preço (US$)', color='blue')
+
+        # Destaque para os 3 maiores picos de aumento
+        ax2.scatter(dates[top_3_increase_indices], values[top_3_increase_indices], color='green', s=100, label='Maiores Picos de Aumento', zorder=5)
+        for i, txt in enumerate(top_3_increase_years):
+            ax2.annotate(txt, (dates[top_3_increase_indices[i]], values[top_3_increase_indices[i]]), xytext=(-20, 10), textcoords='offset points', fontsize=10, color='green')
+
+        # Destaque para os 3 maiores picos de diminuição
+        ax2.scatter(dates[top_3_decrease_indices], values[top_3_decrease_indices], color='red', s=100, label='Maiores Picos de Diminuição', zorder=5)
+        for i, txt in enumerate(top_3_decrease_years):
+            ax2.annotate(txt, (dates[top_3_decrease_indices[i]], values[top_3_decrease_indices[i]]), xytext=(-20, -20), textcoords='offset points', fontsize=10, color='red')
+
+        # Adicionar rótulos e título
+        ax2.set_xlabel('Data')
+        ax2.set_ylabel('Valor (US$)')
+        ax2.set_title('Evolução do Preço ao Longo do Tempo com Destaque nos Maiores Picos')
+        ax2.legend()
+        ax2.grid(True)
+
+        # Exibir o gráfico no Streamlit
+        st.pyplot(fig2)
+
+    st.markdown('<h1 style="font-family:Arial; font-size:20px; color:Back;">Tendências e Recuperação</h1>', unsafe_allow_html=True)
+    st.markdown('<h1 style="font-family:Arial; font-size:15px; color:Back;">Volatilidade:</h1>', unsafe_allow_html=True)        
+    st.markdown("""
+    O gráfico é um testemunho da natureza volátil dos preços ao longo das décadas. As flutuações são comuns, com períodos de aumentos rápidos seguidos por quedas abruptas.
+    """)
+    st.markdown('<h1 style="font-family:Arial; font-size:15px; color:Back;">Resiliência:</h1>', unsafe_allow_html=True)        
+    st.markdown("""
+    Após cada grande queda, os preços demonstram uma notável capacidade de recuperação, embora o caminho de volta seja irregular. Essa resiliência pode ser atribuída a políticas econômicas eficazes, recuperação do mercado e adaptações estratégicas.
+    """)
+
+# Conteúdo da aba "Métricas Estatísticas dos Preços do Petróleo"
 with tab3:
-    st.write("Conteúdo para Refazer 2")
+    st.markdown('<h1 style="font-family:Arial; font-size:20px; color:Black;">Análises de tendências </h1>', unsafe_allow_html=True)
+    st.markdown("""
+            A análise dessas métricas revela um mercado de petróleo em constante movimento, com momentos de calmaria e tempestades financeiras. A média de 53.1105 dólares serve como um farol, guiando-nos através de um oceano de incertezas. O alto desvio padrão nos lembra das ondas gigantes de volatilidade que desafiam até os navegadores mais experientes.
+            Os extremos de 9.1 e 143.95 dólares pintam um quadro de picos vertiginosos e vales profundos, cada um contando uma história de crises e booms. Os percentis e a mediana nos fornecem uma janela para a distribuição dos preços, revelando que, frequentemente, o mercado se move entre marés altas e baixas.
+            A moda de 18.48 dólares surge como uma ilha comum, um preço onde o mercado frequentemente ancorou. Já o coeficiente de variação de 62.54% encapsula a essência de um mercado turbulento e imprevisível, onde a estabilidade é raramente alcançada.
+            Em resumo, esta tabela não é apenas uma coleção de números frios, mas uma narrativa viva e palpitante das forças econômicas e geopolíticas que moldam o mercado global de petróleo. Ela conta histórias de glória e desespero, de desafios e resiliência, revelando a verdadeira natureza deste mercado fascinante.
+    """) 
+    
+    col1, col2 = st.columns([1, 1])  # Dividir a aba em duas colunas iguais
+    
+    with col1:
+        st.markdown('<h1 style="font-family:Arial; font-size:15px; color:Black;">Maiores Médias Anuais dos Preços do Petróleo</h1>', unsafe_allow_html=True)
+
+    with col1:
+        with st.expander("1º Lugar (2012)"):
+             st.markdown("""O ano de 2012 registrou a maior média anual dos preços do petróleo, com um valor de 111.706880 dólares. Esse período provavelmente foi marcado por fatores como alta demanda global, tensões geopolíticas, ou restrições na oferta que impulsionaram os preços para cima.
+        """)
+    with col1:
+        with st.expander("2º Lugar (2011)"):
+             st.markdown("""Com uma média de 111.285552 dólares, o ano de 2011 também viu preços elevados do petróleo. Este valor próximo ao de 2012 sugere que esses dois anos foram bastante similares em termos de condições de mercado.
+        """)  
+    with col1:
+        with st.expander("3º Lugar (2013)"):
+             st.markdown("""Em 2013, a média anual foi de 108.573697 dólares. Embora ligeiramente inferior aos anos anteriores, esse valor ainda indica um período de preços altos, possivelmente devido à continuidade de fatores de oferta e demanda similares aos de 2011 e 2012.
+        """)            
+    with col2:
+        st.markdown('<h1 style="font-family:Arial; font-size:15px; color:Black;">Menores Médias Anuais dos Preços do Petróleo</h1>', unsafe_allow_html=True)
+
+    with col2:
+        with st.expander("Último Lugar (1998)"):
+             st.markdown("""O ano de 1998 registrou a menor média anual dos preços do petróleo, com um valor de 12.758103 dólares. Este preço extremamente baixo pode ser atribuído a uma combinação de crises econômicas, aumento da produção, ou redução na demanda.
+        """)  
+    with col2:
+        with st.expander("Penúltimo Lugar (1988)"):
+             st.markdown("""Em 1988, a média anual dos preços do petróleo foi de 14.905412 dólares. Este ano também foi caracterizado por preços baixos, indicando um período de estabilidade ou excesso de oferta.
+        """)   
+    with col2:
+        with st.expander("Antepenúltimo Lugar (1994)"):
+             st.markdown("""O ano de 1994 teve uma média anual de 15.856389 dólares. Como nos anos anteriores, este valor sugere um mercado onde a oferta superou a demanda, mantendo os preços relativamente baixos.
+        """)    
+    st.markdown('<h1 style="font-family:Arial; font-size:20px; color:Black;">Análise métricas</h1>', unsafe_allow_html=True)
+    st.markdown("""
+            A tabela revela um contraste marcante entre os anos de maiores e menores médias dos preços do petróleo. Entre 2011 e 2013, os preços foram excepcionalmente altos, refletindo um período de tensões geopolíticas e forte demanda global. Esses anos são destacados por médias que ultrapassam os 100 dólares por barril, indicando uma era de preços robustos no mercado de petróleo.
+            Por outro lado, os anos de 1998, 1988, e 1994 mostram um cenário de preços muito mais baixos, com médias anuais que variam entre aproximadamente 12.75 e 15.85 dólares. Esses valores baixos podem ser atribuídos a uma combinação de fatores como crises econômicas, aumento da produção de petróleo, e menor demanda global.
+            Em suma, a tabela não apenas nos apresenta uma coleção de números, mas uma narrativa dinâmica das forças que moldaram o mercado global de petróleo ao longo das décadas. Ela destaca períodos de prosperidade e dificuldade, oferecendo uma visão clara sobre a volatilidade e a complexidade do mercado de petróleo.
+    """) 
