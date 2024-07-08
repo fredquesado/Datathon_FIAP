@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 st.title('Análise base histórica')
 
 # Criação das abas
-tab1, tab2, tab3 = st.tabs(["Valor x Ano", "Picos de Aumento e Diminuição", "Métricas Estatísticas dos Preços do Petróleo"])
+tab1, tab2, tab3, tab4 = st.tabs(["Valor x Ano", "Picos de Aumento e Diminuição", "Métricas Estatísticas dos Preços do Petróleo", "Histograma de Preço Médio Anual"])
 
 # Conteúdo da aba "Valor x Ano"
 with tab1:
@@ -219,3 +219,87 @@ with tab3:
             Por outro lado, os anos de 1998, 1988, e 1994 mostram um cenário de preços muito mais baixos, com médias anuais que variam entre aproximadamente 12.75 e 15.85 dólares. Esses valores baixos podem ser atribuídos a uma combinação de fatores como crises econômicas, aumento da produção de petróleo, e menor demanda global.
             Em suma, a tabela não apenas nos apresenta uma coleção de números, mas uma narrativa dinâmica das forças que moldaram o mercado global de petróleo ao longo das décadas. Ela destaca períodos de prosperidade e dificuldade, oferecendo uma visão clara sobre a volatilidade e a complexidade do mercado de petróleo.
     """) 
+
+# Conteúdo da aba "Histograma de Preço Médio Anual"
+with tab4:
+    st.markdown('<h1 style="font-family:Arial; font-size:15px; color:Black;">Histograma de Preço Médio Anual de Petróleo Brent</h1>', unsafe_allow_html=True)
+
+    col1, col2 = st.columns([1, 1])  # Dividir a aba em duas colunas iguais
+    
+    with col1:
+        with st.expander("Concentração de Preços Baixos"):
+             st.markdown("""A maior frequência de preços médios anuais está no intervalo de aproximadamente 10 a 30 dólares (US$). Isso indica que, ao longo do tempo, houve muitos anos em que o preço médio do petróleo Brent foi relativamente baixo.
+                        Especificamente, vemos que cerca de 12 anos registraram preços médios anuais nessa faixa, destacando uma tendência histórica de preços mais baixos em diversas ocasiões.
+        """)
+    with col1:
+        with st.expander("Distribuição Bimodal"):
+             st.markdown("""O histograma apresenta uma distribuição bimodal, com duas concentrações significativas de dados: uma nos preços baixos e outra em faixas mais altas. Isso sugere que o mercado de petróleo Brent experimenta frequentes transições entre períodos de preços baixos e altos, possivelmente devido a fatores geopolíticos e econômicos.
+                        Além da concentração inicial, há picos adicionais nos intervalos de 50 a 70 dólares (US$) e de 90 a 110 dólares (US$).
+        """)
+    with col2:
+        with st.expander("Intervalos com Menor Frequência"):
+             st.markdown("""Existe uma lacuna notável nos preços médios entre 30 e 50 dólares (US$), onde poucos anos registraram preços médios dentro desse intervalo. Isso pode indicar que as flutuações do mercado tendem a evitar essa faixa de preços ou que eventos econômicos significativos frequentemente empurram os preços para fora dessa faixa.
+        """)
+    with col2:
+        with st.expander("Picos em Faixas Específicas"):
+             st.markdown("""Os picos notáveis nos intervalos de 50 a 70 dólares (US$) e de 90 a 110 dólares (US$), cada um com aproximadamente 3 a 4 anos de ocorrência, sugerem períodos específicos onde fatores econômicos e geopolíticos causaram elevações significativas nos preços do petróleo Brent.
+        """)
+    
+    # Supondo que 'babacu' já esteja carregado e seja um DataFrame
+    # Calcular a média de cada ano
+    media_por_ano = babacu.groupby(babacu['YEAR'])['VALUE (US$)'].mean()
+
+    # Criar o gráfico de histograma
+    fig3, ax3 = plt.subplots(figsize=(10, 6))
+    ax3.hist(media_por_ano, bins=10, color='lightblue', edgecolor='black')
+    ax3.set_xlabel('Preço Médio (US$)')
+    ax3.set_ylabel('Frequência')
+    ax3.set_title('Histograma de Preço Médio Anual de Petróleo Brent')
+    ax3.grid(True, linestyle='--', alpha=0.5)
+    fig3.tight_layout()
+    
+    # Exibir o gráfico no Streamlit
+    st.pyplot(fig3)
+   
+   # Conteúdo da aba "Histograma de Preço Médio Anual"
+    
+    st.markdown('<h1 style="font-family:Arial; font-size:15px; color:Black;">Gráfico de Barras da Média Anual de Preço do Petróleo Brent</h1>', unsafe_allow_html=True)
+
+    col1, col2 = st.columns([1, 1])  # Dividir a aba em duas colunas iguais
+    
+    with col1:
+        with st.expander("Tendência de Alta ao Longo dos Anos"):
+             st.markdown("""O gráfico de barras revela uma clara tendência de alta nos preços médios anuais do petróleo Brent ao longo dos anos. Desde os valores baixos no final da década de 1980 e início da década de 1990, há um aumento gradual até o início dos anos 2000.
+            Esse crescimento reflete a crescente demanda global por petróleo, bem como a influência de eventos geopolíticos e econômicos que afetaram a oferta.
+        """) 
+    with col1:
+        with st.expander("Picos Máximos em 2008 e 2011-2013"):
+             st.markdown("""Observa-se um pico significativo em 2008, onde os preços médios anuais ultrapassaram 100 dólares (US$), coincidindo com a crise financeira global. Após uma breve queda, os preços voltaram a subir e atingiram novos picos entre 2011 e 2013, marcando um período de alta volatilidade e preços elevados no mercado de petróleo.
+            Esses picos podem ser associados a tensões geopolíticas, alta demanda e restrições na oferta.
+        """) 
+    with col2:
+        with st.expander("Queda e Recuperação Pós-2014"):
+             st.markdown("""Após 2014, há uma queda acentuada nos preços, refletindo uma mudança no mercado global de petróleo, possivelmente devido ao aumento da produção de petróleo de xisto nos EUA e uma diminuição da demanda global.
+            No entanto, observa-se uma recuperação gradual nos anos subsequentes, embora com flutuações significativas, destacando a resiliência e a volatilidade do mercado de petróleo.
+        """) 
+    with col2:
+        with st.expander("Impacto da Pandemia de COVID-19 em 2020"):
+             st.markdown("""Em 2020, os preços caíram novamente, refletindo o impacto severo da pandemia de COVID-19. A desaceleração econômica global afetou todos os setores de maneira significativa, levando a uma queda nos preços do petróleo.
+        """) 
+    # Calcular a média de cada ano e criar o gráfico de barras
+    fig4, ax4 = plt.subplots(figsize=(12, 6))
+    media_por_ano.plot(kind='bar', color='lightblue', edgecolor='black', ax=ax4)
+    ax4.set_xlabel('Ano')
+    ax4.set_ylabel('Preço Médio (US$)')
+    ax4.set_title('Média Anual de Preço do Petróleo Brent')
+    ax4.grid(True, linestyle='--', alpha=0.5)
+    plt.xticks(rotation=45)
+    fig4.tight_layout()
+    
+    # Exibir o gráfico de barras no Streamlit
+    st.pyplot(fig4)
+    
+    st.markdown('<h1 style="font-family:Arial; font-size:15px; color:Black;">Analise Geral</h1>', unsafe_allow_html=True)
+    st.markdown("""Após 2014, há uma queda acentuada nos preços, refletindo uma mudança no mercado global de petróleo, possivelmente devido ao aumento da produção de petróleo de xisto nos EUA e uma diminuição da demanda global.
+            Os gráficos fornecem uma visão abrangente da dinâmica dos preços do petróleo Brent ao longo das últimas décadas. O histograma destaca a predominância de preços mais baixos, enquanto o gráfico de barras ilustra a tendência geral de aumento com picos e quedas significativas. Esses gráficos juntos revelam a natureza volátil e influenciada por múltiplos fatores do mercado de petróleo, refletindo as complexas interações entre oferta, demanda, eventos geopolíticos e crises econômicas globais.
+    """)
