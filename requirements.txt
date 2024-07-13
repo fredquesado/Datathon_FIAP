@@ -5,5 +5,3 @@ ipeadatapy
 matplotlib
 streamlit
 Pillow
-base64
-io
