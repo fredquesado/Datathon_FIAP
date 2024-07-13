@@ -17,7 +17,7 @@ def get_base64_image(image_path, transparency=0.4):
     return base64.b64encode(buffered.getvalue()).decode()
 
 # Carregar a imagem de fundo e converter para base64
-background_image_path = "/workspaces/TechChallenge4/Imagens/capa4.png"  # Substitua pelo caminho real da sua imagem
+background_image_path = "Imagens/capa4.png"  # Substitua pelo caminho real da sua imagem
 background_image_base64 = get_base64_image(background_image_path)
 
 # Definir a imagem de fundo e o estilo das letras
