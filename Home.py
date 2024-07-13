@@ -8,7 +8,7 @@ st.set_page_config(page_title="Tech Challenge 4", page_icon=":house:", layout='w
 st.sidebar.success("Selecione uma página acima.")
 
 # Carregar a imagem e aplicar transparência
-image = Image.open("/workspaces/TechChallenge4/Imagens/capa4.png").convert("RGBA")
+image = Image.open("Imagens/capa4.png").convert("RGBA")
 data = image.getdata()
 
 # Definir o nível de transparência
