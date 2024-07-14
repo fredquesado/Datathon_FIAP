@@ -54,8 +54,9 @@ with tab1:
     st.pyplot(fig0)
 
     st.markdown("""
-    teste
+    Explore a montanha-russa do mercado através deste gráfico dinâmico! Ele mostra a trajetória de um valor em dólares de 1988 a 2024, destacando momentos de ascensão meteórica e quedas abruptas. Veja como o valor dispara para alturas vertiginosas em 2008 e 2012, testemunhando a volatilidade do mercado que cativa e desafia investidores. Acompanhe essa jornada empolgante de altos e baixos que oferece insights cruciais sobre as complexidades do mundo financeiro. Ideal para quem busca entender as forças que moldam nossas economias e oportunidades de investimento!
     """)
+    
 # Conteúdo da aba "Valor x Ano"
 with tab2:
     st.markdown("""
