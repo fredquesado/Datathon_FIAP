@@ -2,17 +2,64 @@ import streamlit as st
 import ipeadatapy as ipea
 import pandas as pd
 import numpy as np
+import ipeadatapy as ip
 import matplotlib.pyplot as plt
+from dash import dcc, html
+from dash.dependencies import Input, Output
+import plotly.express as px
+import yfinance as yf
+import datetime
+import plotly.graph_objects as go
 
 st.title('Análise base histórica')
 
 # Criação das abas
-tab1, tab2, tab3, tab4 = st.tabs(["Valor x Ano", "Picos de Aumento e Diminuição", "Métricas Estatísticas dos Preços do Petróleo", "Histograma de Preço Médio Anual"])
-
-# Conteúdo da aba "Valor x Ano"
+tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(['Gráfico Inicial',"Valor x Ano", "Picos de Aumento e Diminuição", "Métricas Estatísticas dos Preços do Petróleo", "Histograma de Preço Médio Anual","Relação com Dólar"])
 with tab1:
     st.markdown("""
-    Este gráfico de dispersão revela uma fascinante relação entre os anos e os valores em dólares americanos (US$), oferecendo uma visão intrigante sobre tendências e flutuações econômicas ao longo do tempo. Aqui estão os pontos mais interessantes:
+    Gráfico do preço do petróleo Brent ao longo dos anos
+    """)
+    
+
+    # Listagem das séries disponíveis no IPEA
+    df = ipea.list_series()
+    data = ipea.timeseries('EIA366_PBRENT366')
+
+    # Adiciona slider para selecionar o período do gráfico
+    anos = data['YEAR'].unique()
+    ano_inicio1, ano_fim1 = st.slider(
+        'Selecione o período',
+        min_value=int(anos.min()),
+        max_value=int(anos.max()),
+        value=(int(anos.min()), int(anos.max())),
+        key='slider1'
+    )
+
+    # Filtrar os dados com base no período selecionado
+    dados_filtrados = data[(data['YEAR'] >= ano_inicio1) & (data['YEAR'] <= ano_fim1)]
+    
+    # Plotar gráfico de dispersão usando matplotlib
+    fig0, ax = plt.subplots()
+    graf1 =ax.plot(dados_filtrados.index, dados_filtrados['VALUE (US$)'], color='blue', alpha=0.6, linewidth=2)
+
+    ax.set_xlabel('Ano')
+    ax.set_ylabel('Valor (US$)')
+    ax.set_title('Gráfico de Dispersão: ANO vs VALOR')
+    ax.grid(True, linestyle='--', alpha=0.6)
+
+    # Ajustar layout para evitar sobreposição
+    fig0.tight_layout()
+    
+    # Exibir o gráfico no Streamlit
+    st.pyplot(fig0)
+
+    st.markdown("""
+    teste
+    """)
+# Conteúdo da aba "Valor x Ano"
+with tab2:
+    st.markdown("""
+    Este gráfico de dispersão revela uma fascinante relação entre os anos e os valores em dólares americanos (US\$), oferecendo uma visão intrigante sobre tendências e flutuações econômicas ao longo do tempo. Aqui estão os pontos mais interessantes:
     """)
     
     col1, col2 = st.columns([1, 2])  # Dividir a aba em duas colunas, com a segunda coluna maior
@@ -24,7 +71,7 @@ with tab1:
             """)
         with st.expander("Valores em Alta e Baixa"):
             st.markdown("""
-            O eixo vertical exibe valores que variam de aproximadamente 20(US$) a 140(US$). Essa ampla faixa sugere um mercado dinâmico, repleto de altos e baixos emocionantes.
+            O eixo vertical exibe valores que variam de aproximadamente 20(US\$) a 140(US\$). Essa ampla faixa sugere um mercado dinâmico, repleto de altos e baixos emocionantes.
             """)
         with st.expander("Padrões de Distribuição"):
             st.markdown("""
@@ -42,10 +89,10 @@ with tab1:
     with col2:
         # Listagem das séries disponíveis no IPEA
         df = ipea.list_series()
-        babacu = ipea.timeseries('EIA366_PBRENT366')
+        data = ipea.timeseries('EIA366_PBRENT366')
 
         # Adiciona slider para selecionar o período do gráfico
-        anos = babacu['YEAR'].unique()
+        anos = data['YEAR'].unique()
         ano_inicio, ano_fim = st.slider(
             'Selecione o período',
             min_value=int(anos.min()),
@@ -54,7 +101,7 @@ with tab1:
         )
 
         # Filtrar os dados com base no período selecionado
-        dados_filtrados = babacu[(babacu['YEAR'] >= ano_inicio) & (babacu['YEAR'] <= ano_fim)]
+        dados_filtrados = data[(data['YEAR'] >= ano_inicio) & (data['YEAR'] <= ano_fim)]
         
         # Plotar gráfico de dispersão usando matplotlib
         fig, ax = plt.subplots()
@@ -88,10 +135,10 @@ with tab2:
                          """)
         st.markdown('<h1 style="font-family:Arial; font-size:20px; color:Back;">Picos Memoráveis:</h1>', unsafe_allow_html=True)
         with st.expander("2008 - O Grande Salto"):
-             st.markdown("""Ponto Verde: Em 2008, os preços atingiram um ápice impressionante de aproximadamente 140 US$. Esse pico coincide com a crise financeira global, marcada pela bolha imobiliária e a subsequente recessão. Foi um período de grande incerteza econômica que inflacionou os preços de maneira significativa.
+             st.markdown("""Ponto Verde: Em 2008, os preços atingiram um ápice impressionante de aproximadamente 140 US\$. Esse pico coincide com a crise financeira global, marcada pela bolha imobiliária e a subsequente recessão. Foi um período de grande incerteza econômica que inflacionou os preços de maneira significativa.
                          """)    
         with st.expander("1998 - A Grande Queda"):
-             st.markdown("""Ponto Vermelho: O gráfico destaca uma queda acentuada em 1998, onde os preços despencaram para cerca de 10 US$. Este período pode estar associado a crises econômicas regionais ou outros eventos adversos que afetaram drasticamente o mercado.
+             st.markdown("""Ponto Vermelho: O gráfico destaca uma queda acentuada em 1998, onde os preços despencaram para cerca de 10 US\$. Este período pode estar associado a crises econômicas regionais ou outros eventos adversos que afetaram drasticamente o mercado.
                          """)     
         with st.expander("2020 - Impacto da Pandemia"):
              st.markdown("""Outro Ponto Vermelho: Em 2020, os preços caíram novamente, refletindo o impacto severo da pandemia de COVID-19. A pandemia trouxe uma desaceleração econômica global, afetando todos os setores de maneira significativa.
@@ -103,20 +150,20 @@ with tab2:
              st.markdown(""" - Vermelho: Sinaliza os maiores picos de diminuição.""")
 
         # Obter os dados
-        babacu = ipea.timeseries('EIA366_PBRENT366')
+        data = ipea.timeseries('EIA366_PBRENT366')
 
         # Resetar o índice para usar a coluna de datas
-        babacu = babacu.reset_index()
+        data = data.reset_index()
 
         # Certificar que a coluna 'DATE' está no formato de datetime
-        babacu['DATE'] = pd.to_datetime(babacu['DATE'])
+        data['DATE'] = pd.to_datetime(data['DATE'])
 
         # Ordenar os dados por data
-        babacu = babacu.sort_values(by='DATE')
+        data = data.sort_values(by='DATE')
 
         # Extrair valores e datas
-        values = babacu['VALUE (US$)'].values
-        dates = babacu['DATE'].values
+        values = data['VALUE (US$)'].values
+        dates = data['DATE'].values
 
         # Identificar picos de alta e baixa
         picos_aumento_indices = np.argwhere((values > np.roll(values, 1)) & (values > np.roll(values, -1))).flatten()
@@ -129,7 +176,7 @@ with tab2:
         top_3_decrease_indices = picos_diminuicao_indices[np.argsort(values[picos_diminuicao_indices])[:3]]
 
         # Extrair os anos correspondentes aos picos de aumento e diminuição
-        years = babacu['DATE'].dt.year.values
+        years = data['DATE'].dt.year.values
 
         # Selecionar os anos dos 3 maiores picos de aumento
         top_3_increase_years = years[top_3_increase_indices]
@@ -139,7 +186,7 @@ with tab2:
 
         # Plotar gráfico de linha
         fig2, ax2 = plt.subplots(figsize=(14, 7))
-        ax2.plot(babacu['DATE'], babacu['VALUE (US$)'], label='Preço (US$)', color='blue')
+        ax2.plot(data['DATE'], data['VALUE (US$)'], label='Preço (US$)', color='blue')
 
         # Destaque para os 3 maiores picos de aumento
         ax2.scatter(dates[top_3_increase_indices], values[top_3_increase_indices], color='green', s=100, label='Maiores Picos de Aumento', zorder=5)
@@ -228,26 +275,26 @@ with tab4:
     
     with col1:
         with st.expander("Concentração de Preços Baixos"):
-             st.markdown("""A maior frequência de preços médios anuais está no intervalo de aproximadamente 10 a 30 dólares (US$). Isso indica que, ao longo do tempo, houve muitos anos em que o preço médio do petróleo Brent foi relativamente baixo.
+             st.markdown("""A maior frequência de preços médios anuais está no intervalo de aproximadamente 10 a 30 dólares (US\$). Isso indica que, ao longo do tempo, houve muitos anos em que o preço médio do petróleo Brent foi relativamente baixo.
                         Especificamente, vemos que cerca de 12 anos registraram preços médios anuais nessa faixa, destacando uma tendência histórica de preços mais baixos em diversas ocasiões.
         """)
     with col1:
         with st.expander("Distribuição Bimodal"):
              st.markdown("""O histograma apresenta uma distribuição bimodal, com duas concentrações significativas de dados: uma nos preços baixos e outra em faixas mais altas. Isso sugere que o mercado de petróleo Brent experimenta frequentes transições entre períodos de preços baixos e altos, possivelmente devido a fatores geopolíticos e econômicos.
-                        Além da concentração inicial, há picos adicionais nos intervalos de 50 a 70 dólares (US$) e de 90 a 110 dólares (US$).
+                        Além da concentração inicial, há picos adicionais nos intervalos de 50 a 70 dólares (US\$) e de 90 a 110 dólares (US\$).
         """)
     with col2:
         with st.expander("Intervalos com Menor Frequência"):
-             st.markdown("""Existe uma lacuna notável nos preços médios entre 30 e 50 dólares (US$), onde poucos anos registraram preços médios dentro desse intervalo. Isso pode indicar que as flutuações do mercado tendem a evitar essa faixa de preços ou que eventos econômicos significativos frequentemente empurram os preços para fora dessa faixa.
+             st.markdown("""Existe uma lacuna notável nos preços médios entre 30 e 50 dólares (US\$), onde poucos anos registraram preços médios dentro desse intervalo. Isso pode indicar que as flutuações do mercado tendem a evitar essa faixa de preços ou que eventos econômicos significativos frequentemente empurram os preços para fora dessa faixa.
         """)
     with col2:
         with st.expander("Picos em Faixas Específicas"):
-             st.markdown("""Os picos notáveis nos intervalos de 50 a 70 dólares (US$) e de 90 a 110 dólares (US$), cada um com aproximadamente 3 a 4 anos de ocorrência, sugerem períodos específicos onde fatores econômicos e geopolíticos causaram elevações significativas nos preços do petróleo Brent.
+             st.markdown("""Os picos notáveis nos intervalos de 50 a 70 dólares (US\$) e de 90 a 110 dólares (US\$), cada um com aproximadamente 3 a 4 anos de ocorrência, sugerem períodos específicos onde fatores econômicos e geopolíticos causaram elevações significativas nos preços do petróleo Brent.
         """)
     
-    # Supondo que 'babacu' já esteja carregado e seja um DataFrame
+    # Supondo que 'data' já esteja carregado e seja um DataFrame
     # Calcular a média de cada ano
-    media_por_ano = babacu.groupby(babacu['YEAR'])['VALUE (US$)'].mean()
+    media_por_ano = data.groupby(data['YEAR'])['VALUE (US$)'].mean()
 
     # Criar o gráfico de histograma
     fig3, ax3 = plt.subplots(figsize=(10, 6))
@@ -274,7 +321,7 @@ with tab4:
         """) 
     with col1:
         with st.expander("Picos Máximos em 2008 e 2011-2013"):
-             st.markdown("""Observa-se um pico significativo em 2008, onde os preços médios anuais ultrapassaram 100 dólares (US$), coincidindo com a crise financeira global. Após uma breve queda, os preços voltaram a subir e atingiram novos picos entre 2011 e 2013, marcando um período de alta volatilidade e preços elevados no mercado de petróleo.
+             st.markdown("""Observa-se um pico significativo em 2008, onde os preços médios anuais ultrapassaram 100 dólares (US\$), coincidindo com a crise financeira global. Após uma breve queda, os preços voltaram a subir e atingiram novos picos entre 2011 e 2013, marcando um período de alta volatilidade e preços elevados no mercado de petróleo.
             Esses picos podem ser associados a tensões geopolíticas, alta demanda e restrições na oferta.
         """) 
     with col2:
@@ -303,3 +350,101 @@ with tab4:
     st.markdown("""Após 2014, há uma queda acentuada nos preços, refletindo uma mudança no mercado global de petróleo, possivelmente devido ao aumento da produção de petróleo de xisto nos EUA e uma diminuição da demanda global.
             Os gráficos fornecem uma visão abrangente da dinâmica dos preços do petróleo Brent ao longo das últimas décadas. O histograma destaca a predominância de preços mais baixos, enquanto o gráfico de barras ilustra a tendência geral de aumento com picos e quedas significativas. Esses gráficos juntos revelam a natureza volátil e influenciada por múltiplos fatores do mercado de petróleo, refletindo as complexas interações entre oferta, demanda, eventos geopolíticos e crises econômicas globais.
     """)
+with tab6:
+    st.markdown("""
+    <style>
+    .big-font {
+        font-size: 20px !important;
+        margin-bottom: 15px;
+        text-indent: 40px;
+        max-width: 1000px; /* Define a largura máxima do texto */
+        margin-left: 20; /* Alinha o texto à esquerda */
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+    st.markdown('<p class="big-font">Foi investigado aqui uma relação entre o preço do petróleo Brent e o preço do dólar, uma vez que o petróleo é cotado em dólares no mercado internacional. Quando o dólar se valoriza, o preço do petróleo tende a cair, pois se torna mais caro em outras moedas, reduzindo a demanda global. Por outro lado, quando o dólar se desvaloriza, o preço do petróleo geralmente sobe, tornando-o mais acessível internacionalmente e aumentando a demanda. Essa dinâmica reflete a sensibilidade do mercado de petróleo às flutuações cambiais e à interdependência entre commodities e moedas. </p>', unsafe_allow_html=True)
+
+    st.markdown('<p class="big-font">Para investigar essa relação, utilizou-se o USDX. O USDX, ou Índice do Dólar dos Estados Unidos, é uma medida do valor do dólar norte-americano em relação a uma cesta de seis principais moedas estrangeiras: euro, iene japonês, libra esterlina, dólar canadense, coroa sueca e franco suíço. Ele oferece uma visão abrangente da força do dólar no mercado global. Utilizar o USDX para investigar a relação entre o preço do petróleo Brent e o preço do dólar é eficaz porque captura as variações do dólar em um contexto amplo.</p>', unsafe_allow_html=True)
+
+    st.markdown('<p class="big-font">Utilizando-se a biblioteca do Yahoo Finance, obteve-se os dados do USDX para as mesmas datas contidas na database do Ipea, onde se construiu um gráfico e calculou-se a correlação:</p>', unsafe_allow_html=True)
+    series = ip.list_series()
+    data = ip.timeseries('EIA366_PBRENT366')
+    data = data[["VALUE (US$)"]]
+    data.rename(columns={"VALUE (US$)": "Price"}, inplace=True)
+    data.index.name = "date"
+    data = data.dropna()
+    data.index = pd.to_datetime(data.index)
+    
+    # Define the date range based on your existing DataFrame
+    start_date = data.index.min()
+    end_date = data.index.max()
+
+    # Fetch USDX data from Yahoo Finance
+    usdx = yf.download('DX-Y.NYB', start=start_date, end=end_date)
+
+    # Select and rename relevant columns
+    usdx = usdx[['Close']]
+    usdx.rename(columns={'Close': 'USDX'}, inplace=True)
+
+    # Join the data
+    combined_data = data.join(usdx, how='inner')
+
+    # Handle any missing data (if necessary)
+    combined_data.dropna(inplace=True)
+
+    # Create traces for Brent Price and USDX
+    fig = go.Figure()
+
+    fig.add_trace(
+        go.Scatter(
+            x=combined_data.index,
+            y=combined_data['Price'],
+            name='Brent Price',
+            line=dict(color='red'),
+            yaxis='y1'
+        )
+    )
+
+    fig.add_trace(
+        go.Scatter(
+            x=combined_data.index,
+            y=combined_data['USDX'],
+            name='USDX',
+            line=dict(color='blue'),
+            yaxis='y2'
+        )
+    )
+
+    # Create a layout with two y-axes
+    fig.update_layout(
+        title='Preço do Petroleo Brent vs. USDX',
+        xaxis=dict(title='Date'),
+        yaxis=dict(
+            title='Brent Price',
+            titlefont=dict(color='red'),
+            tickfont=dict(color='red')
+        ),
+        yaxis2=dict(
+            title='USDX',
+            titlefont=dict(color='blue'),
+            tickfont=dict(color='blue'),
+            anchor='x',
+            overlaying='y',
+            side='right'
+        ),
+        legend=dict(
+            x=0.1,
+            y=0.9
+        )
+    )
+
+    # Show the plot in Streamlit
+    st.plotly_chart(fig)
+    correlation = combined_data['USDX'].corr(combined_data['Price'])
+    col1, col2, col3 = st.columns([1, 2, 1])
+
+    with col2:
+        st.metric(label="Correlação Observada", value=round(correlation, 2))
+
+    st.markdown('<p class="big-font">Observa-se uma correlação negativa, que é relevante mas não extremamente alta, pois existem outros fatores globais que influenciam nesse preço, como demanda, fatores geopoliticos, etc.</p>', unsafe_allow_html=True)
