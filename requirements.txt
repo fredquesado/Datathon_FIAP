@@ -1,9 +1,14 @@
 requests
-beautifulsoup4
 pandas
 ipeadatapy
 matplotlib
 streamlit
-Pillow
+numpy
+scikit-learn
 dash
+plotly
+dotenv
+pillow
+plotly.express
+locale
 yfinance
