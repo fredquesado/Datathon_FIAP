@@ -14,6 +14,17 @@ st.markdown("""
 **• Impacto das Políticas de Energia Renovável:** As políticas globais de transição para energias renováveis também têm um impacto significativo nos preços do petróleo.
 """, unsafe_allow_html=True)
 
+
+st.markdown("""
+### Limitações e próximos passos:
+
+**• Alta Volatilidade:** O modelo teve dificuldades em prever com precisão durante períodos de extrema volatilidade, sugerindo a necessidade de explorar modelos adicionais ou aprimorar os existentes.
+
+**• Atualização dos Dados:** Continuar atualizando os dados e retreinando o modelo pode aumentar a precisão das previsões.
+
+**• Análise de Features:** Investigar mais profundamente quais variáveis influenciam os preços do petróleo Brent pode melhorar o modelo.
+""", unsafe_allow_html=True)
+
 st.markdown("""
 ### Conclusões:
 
