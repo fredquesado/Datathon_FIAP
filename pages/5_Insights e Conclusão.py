@@ -26,7 +26,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 st.markdown("""
-### Conclusões:
+### Conclusão:
 
 Em conclusão, o projeto demonstrou a viabilidade e a importância de utilizar técnicas de machine learning para prever preços de commodities como o petróleo Brent. A aplicação de um modelo Random Forest, juntamente com visualizações interativas, forneceu uma abordagem compreensiva para a análise e previsão de preços, destacando-se como uma ferramenta crucial para investidores e indústrias dependentes do petróleo.
 
