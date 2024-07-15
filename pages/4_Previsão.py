@@ -3,31 +3,36 @@ import ipeadatapy as ip
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import dash
-from dash import dcc, html
-from dash.dependencies import Input, Output
-import plotly.express as px
-import locale
-import os
 from PIL import Image
+import os
+import locale
+
+# Certifique-se de que sklearn está instalado
+try:
+    from sklearn.ensemble import RandomForestRegressor
+    from sklearn.experimental import enable_halving_search_cv  # noqa
+    from sklearn.model_selection import HalvingGridSearchCV, TimeSeriesSplit
+    from sklearn.pipeline import Pipeline
+    from sklearn.preprocessing import StandardScaler
+    from sklearn.base import BaseEstimator, TransformerMixin
+except ImportError as e:
+    st.error(f"Erro ao importar o sklearn: {e}")
+    st.stop()
 
 # Set locale to Brazilian Portuguese
 try:
     locale.setlocale(locale.LC_TIME, 'pt_BR.UTF-8')
 except locale.Error:
-    print("Locale pt_BR.UTF-8 não está disponível. Usando o padrão.")
+    st.warning("Locale pt_BR.UTF-8 não está disponível. Usando o padrão.")
 
 st.title('Previsão com ML')
 
 # Criação das abas
-introducao, tab1, tab2= st.tabs(["Introdução e etapas","Previsão ML D+1",'Previsão ML D+10'])
+introducao, tab1, tab2= st.tabs(["Introdução e etapas", "Previsão ML D+1", 'Previsão ML D+10'])
 
 with introducao:
     st.markdown("""
     # Introdução e Etapas
-    """)
-
-    st.markdown("""
     <style>
     .big-font {
         font-size: 20px !important;
@@ -39,15 +44,25 @@ with introducao:
     </style>
     """, unsafe_allow_html=True)
 
-    st.markdown('<p class="big-font">O modelo Random Forest Regressor foi utilizado devido à sua capacidade de lidar com relações complexas e não lineares entre variáveis, sua robustez contra overfitting, e a habilidade de fornecer previsões precisas mesmo com dados ausentes. Além disso, o modelo permite a identificação da importância das variáveis preditoras, facilitando a análise dos principais fatores que influenciam os preços do barril de petróleo Brent. Essa escolha garante previsões mais confiáveis em um mercado altamente volátil.</p>', unsafe_allow_html=True)
+    st.markdown('<p class="big-font">Descrição das etapas e metodologia usada...</p>', unsafe_allow_html=True)
 
-    st.markdown('<p class="big-font">O resultado da predição foi avaliado utilizando as métricas MAE, MAPE e R². O MAE quantifica o erro médio absoluto, o MAPE fornece a precisão percentual das previsões, e o R² mede a proporção da variância explicada pelo modelo. Essas métricas foram escolhidas para garantir uma avaliação abrangente da precisão e eficácia do modelo na predição dos preços do barril de petróleo Brent.</p>', unsafe_allow_html=True)
-
-    st.markdown('<p class="big-font">Um gráfico foi gerado para mostrar o peso de cada feature do modelo, permitindo identificar os principais fatores que influenciam os preços do barril de petróleo Brent. O objetivo dessa visualização é facilitar a interpretação dos resultados, destacando quais variáveis têm maior impacto nas previsões, e, assim, orientar a tomada de decisões baseada em dados.</p>', unsafe_allow_html=True)
 with tab1:
     st.markdown("""
-# Previsão D+1 do Petróleo Brent
-""")
+    # Previsão D+1 do Petróleo Brent
+    """)
+
+    @st.cache  # Use caching to speed up data loading
+    def load_data():
+        series = ip.list_series()
+        data = ip.timeseries('EIA366_PBRENT366')
+        data = data[["VALUE (US$)"]]
+        data.rename(columns={"VALUE (US$)": "Price"}, inplace=True)
+        data.index.name = "date"
+        data = data.dropna()
+        data.index = pd.to_datetime(data.index)
+        return data
+
+    data = load_data()
     # Create a placeholder for the loading message
     loading_message = st.empty()
     loading_message.markdown("""
