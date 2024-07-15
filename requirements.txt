@@ -1,7 +1,7 @@
 requests>=2.28
 beautifulsoup4>=4.11
 pandas>=1.4
-ipeadatapy>=0.1.7  # Verificar se esta é a versão mais atual e compatível
+ipeadatapy>=0.1.7  
 matplotlib>=3.5
 streamlit>=1.10
 Pillow>=9.0
