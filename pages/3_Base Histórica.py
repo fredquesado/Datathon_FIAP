@@ -124,7 +124,7 @@ with tab2:
     """)
 
 # Conteúdo da aba "Picos de Aumento e Diminuição"
-with tab2:
+with tab3:
     st.markdown("""
     O gráfico ilustra a fascinante evolução dos preços ao longo de várias décadas, destacando momentos marcantes de aumentos e quedas abruptas. 
     Este gráfico oferece uma janela para o passado, ajudando-nos a entender como eventos globais moldam os preços e, consequentemente, a economia. Ele também nos dá uma perspectiva valiosa para prever futuras tendências, preparando-nos para navegar pelas inevitáveis flutuações do mercado.
@@ -220,7 +220,7 @@ with tab2:
     """)
 
 # Conteúdo da aba "Métricas Estatísticas dos Preços do Petróleo"
-with tab3:
+with tab4:
     st.markdown('<h1 style="font-family:Arial; font-size:20px; color:Black;">Análises de tendências </h1>', unsafe_allow_html=True)
     st.markdown("""
             A análise dessas métricas revela um mercado de petróleo em constante movimento, com momentos de calmaria e tempestades financeiras. A média de 53.1105 dólares serve como um farol, guiando-nos através de um oceano de incertezas. O alto desvio padrão nos lembra das ondas gigantes de volatilidade que desafiam até os navegadores mais experientes.
@@ -269,7 +269,7 @@ with tab3:
     """) 
 
 # Conteúdo da aba "Histograma de Preço Médio Anual"
-with tab4:
+with tab5:
     st.markdown('<h1 style="font-family:Arial; font-size:15px; color:Black;">Histograma de Preço Médio Anual de Petróleo Brent</h1>', unsafe_allow_html=True)
 
     col1, col2 = st.columns([1, 1])  # Dividir a aba em duas colunas iguais
