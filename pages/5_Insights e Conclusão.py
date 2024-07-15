@@ -3,7 +3,7 @@ import streamlit as st
 st.title('Insights e Conclusão')
 
 st.markdown("""
-# O projeto proporcionou diversos insights valiosos:
+### O projeto proporcionou diversos insights valiosos:
 
 **• Influência Geopolítica nos Preços do Petróleo:** O preço do barril de petróleo é fortemente influenciado pela geopolítica global. Isso é evidente nos anos de 1990-1991, durante a Guerra do Golfo, e novamente em 2008, com a crise financeira global. Esses eventos causaram flutuações significativas nos preços devido à incerteza e às mudanças na oferta e demanda.
 
