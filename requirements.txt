@@ -11,6 +11,6 @@ ipeadatapy
 numpy
 scikit-learn
 plotly
-dotenv
+dotenv==0.0.5
 plotly.express
 locale
