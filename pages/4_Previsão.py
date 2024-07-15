@@ -20,7 +20,7 @@ except locale.Error:
 st.title('Previsão com ML')
 
 # Criação das abas
-introducao, tab1, tab2= st.tabs(["Introdução e etapas","Previsão ML D+1",'Previsão ML D+10'])
+introducao, tab1, tab2 = st.tabs(["Introdução e etapas", "Previsão ML D+1", "Previsão ML D+10"])
 
 with introducao:
     st.markdown("""
@@ -28,26 +28,21 @@ with introducao:
     """)
 
     st.markdown("""
-    <style>
-    .big-font {
-        font-size: 20px !important;
-        margin-bottom: 15px;
-        text-indent: 40px;
-        max-width: 1000px; /* Define a largura máxima do texto */
-        margin-left: 20; /* Alinha o texto à esquerda */
-    }
-    </style>
-    """, unsafe_allow_html=True)
+    O modelo Random Forest Regressor foi utilizado devido à sua capacidade de lidar com relações complexas e não lineares entre variáveis, sua robustez contra overfitting, e a habilidade de fornecer previsões precisas mesmo com dados ausentes. Além disso, o modelo permite a identificação da importância das variáveis preditoras, facilitando a análise dos principais fatores que influenciam os preços do barril de petróleo Brent. Essa escolha garante previsões mais confiáveis em um mercado altamente volátil.
+    """)
 
-    st.markdown('<p class="big-font">O modelo Random Forest Regressor foi utilizado devido à sua capacidade de lidar com relações complexas e não lineares entre variáveis, sua robustez contra overfitting, e a habilidade de fornecer previsões precisas mesmo com dados ausentes. Além disso, o modelo permite a identificação da importância das variáveis preditoras, facilitando a análise dos principais fatores que influenciam os preços do barril de petróleo Brent. Essa escolha garante previsões mais confiáveis em um mercado altamente volátil.</p>', unsafe_allow_html=True)
+    st.markdown("""
+    O resultado da predição foi avaliado utilizando as métricas MAE, MAPE e R². O MAE quantifica o erro médio absoluto, o MAPE fornece a precisão percentual das previsões, e o R² mede a proporção da variância explicada pelo modelo. Essas métricas foram escolhidas para garantir uma avaliação abrangente da precisão e eficácia do modelo na predição dos preços do barril de petróleo Brent.
+    """)
 
-    st.markdown('<p class="big-font">O resultado da predição foi avaliado utilizando as métricas MAE, MAPE e R². O MAE quantifica o erro médio absoluto, o MAPE fornece a precisão percentual das previsões, e o R² mede a proporção da variância explicada pelo modelo. Essas métricas foram escolhidas para garantir uma avaliação abrangente da precisão e eficácia do modelo na predição dos preços do barril de petróleo Brent.</p>', unsafe_allow_html=True)
+    st.markdown("""
+    Um gráfico foi gerado para mostrar o peso de cada feature do modelo, permitindo identificar os principais fatores que influenciam os preços do barril de petróleo Brent. O objetivo dessa visualização é facilitar a interpretação dos resultados, destacando quais variáveis têm maior impacto nas previsões, e, assim, orientar a tomada de decisões baseada em dados.
+    """)
 
-    st.markdown('<p class="big-font">Um gráfico foi gerado para mostrar o peso de cada feature do modelo, permitindo identificar os principais fatores que influenciam os preços do barril de petróleo Brent. O objetivo dessa visualização é facilitar a interpretação dos resultados, destacando quais variáveis têm maior impacto nas previsões, e, assim, orientar a tomada de decisões baseada em dados.</p>', unsafe_allow_html=True)
 with tab1:
     st.markdown("""
-# Previsão D+1 do Petróleo Brent
-""")
+    # Previsão D+1 do Petróleo Brent
+    """)
     # Create a placeholder for the loading message
     loading_message = st.empty()
     loading_message.markdown("""
@@ -230,7 +225,7 @@ with tab1:
     
     st.markdown("""
     ## Gráfico Previsão vs Dados reais:
-    A seguir pode ser visto o gráfico da previsão efetuada pelo modelo, e os dados reais do conjunto de teste (ultimos 10\% do dataset)
+    A seguir pode ser visto o gráfico da previsão efetuada pelo modelo, e os dados reais do conjunto de teste (últimos 10% do dataset)
     """)
     st.plotly_chart(fig2)
     st.markdown("""
@@ -249,7 +244,7 @@ with tab1:
     
     st.markdown("""
     ## Importância de cada feature para o modelo
-    No gráfico a seguir pode ser visto a importância de cada feature para que o modelo execute a previsão, aonde lag_x é o dado do dia anterior em x dias e rolling_mean é a média dos ultimos 7 dias.
+    No gráfico a seguir pode ser visto a importância de cada feature para que o modelo execute a previsão, aonde lag_x é o dado do dia anterior em x dias e rolling_mean é a média dos últimos 7 dias.
     """)
     st.plotly_chart(fig1)
     # Remove the loading message after the process is done
@@ -258,25 +253,15 @@ with tab1:
     ## Importância de cada feature para o modelo
     É interessante perceber que o modelo utilizou variadas métricas para realizar essa predição, e não apenas os preços mais atuais.
     """)
-    
+
 with tab2:
     st.markdown("""
     # Previsão para 10 dias
     """)
-    st.markdown("""
-    <style>
-    .big-font {
-        font-size: 20px !important;
-        margin-bottom: 15px;
-        text-indent: 40px;
-        max-width: 1000px; /* Define a largura máxima do texto */
-        margin-left: 20; /* Alinha o texto à esquerda */
-    }
-    </style>
-    """, unsafe_allow_html=True)
-
     # Display the introductory text
-    st.markdown('<p class="big-font">Realizou-se também um treinamento do modelo para que o mesmo efetue a previsão para os próximos 10 dias. As métricas do resultado e as features utilizadas são apresentadas a seguir:</p>', unsafe_allow_html=True)
+    st.markdown("""
+    Realizou-se também um treinamento do modelo para que o mesmo efetue a previsão para os próximos 10 dias. As métricas do resultado e as features utilizadas são apresentadas a seguir:
+    """)
 
     # Define the paths to the images
     image_path1 = os.path.join('Imagens', 'metricasd10.png')
@@ -295,4 +280,6 @@ with tab2:
         st.image(imagefeatures, caption='Peso das Features', use_column_width=True)
 
     # Display the concluding text
-    st.markdown('<p class="big-font">Observa-se um erro que cresce de forma proporcional à quantidade de dias de previsão, o que é esperado, pois o modelo usa o output de uma previsão D+1 para input da previsão D+2, o que adiciona incertezas de forma sucessiva na previsão dos dias seguintes. Isso faz com que as previsões carreguem cada vez mais erros, e não sejam tão confiáveis para uma quantidade maior de dias.</p>', unsafe_allow_html=True)
+    st.markdown("""
+    Observa-se um erro que cresce de forma proporcional à quantidade de dias de previsão, o que é esperado, pois o modelo usa o output de uma previsão D+1 para input da previsão D+2, o que adiciona incertezas de forma sucessiva na previsão dos dias seguintes. Isso faz com que as previsões carreguem cada vez mais erros, e não sejam tão confiáveis para uma quantidade maior de dias.
+    """)
