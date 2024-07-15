@@ -3,7 +3,6 @@ import ipeadatapy as ip
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import dash
 from dash import dcc, html
 from dash.dependencies import Input, Output
 import plotly.express as px
@@ -11,7 +10,7 @@ import locale
 import os
 from PIL import Image
 
-# Set locale to Brazilian Portuguese
+# Definir localidade para Português do Brasil
 try:
     locale.setlocale(locale.LC_TIME, 'pt_BR.UTF-8')
 except locale.Error:
@@ -43,11 +42,13 @@ with tab1:
     st.markdown("""
     # Previsão D+1 do Petróleo Brent
     """)
-    # Create a placeholder for the loading message
+    # Criação de um placeholder para a mensagem de carregamento
     loading_message = st.empty()
     loading_message.markdown("""
     Carregando (pode demorar um pouco)
     """)
+
+    # Carregando dados de série temporal
     series = ip.list_series()
     data = ip.timeseries('EIA366_PBRENT366')
     data = data[["VALUE (US$)"]]
@@ -56,14 +57,12 @@ with tab1:
     data = data.dropna()
     data.index = pd.to_datetime(data.index)
     
-    # importando
+    # Filtrando os últimos 25 anos
     last_date = data.index[-1]
     filtrado = last_date - pd.DateOffset(years=25)
-
-    # Filtrando o DataFrame para incluir apenas os últimos 25 anos
     filtrado25 = data.loc[filtrado:]
     
-    # divisão manual dos dados de treino e teste
+    # Divisão manual dos dados de treino e teste
     train_size = int(len(filtrado25) * 0.9)
     train, test = filtrado25.iloc[:train_size], filtrado25.iloc[train_size:]
     
@@ -75,7 +74,7 @@ with tab1:
     from sklearn.preprocessing import StandardScaler
     from sklearn.base import BaseEstimator, TransformerMixin
 
-    # classe customizada para engenharia de features
+    # Classe customizada para engenharia de features
     class FeatureEngineer(BaseEstimator, TransformerMixin):
         def __init__(self, target, lags, window_size):
             self.target = target
@@ -101,20 +100,20 @@ with tab1:
             X.fillna(0, inplace=True)
             return X
 
-    # pipeline de steps
+    # Pipeline de steps
     pipeline = Pipeline([
         ("feature_engineering", FeatureEngineer(target="Price", lags=7, window_size=7)),
         ("scaler", StandardScaler()),
         ("model", RandomForestRegressor())
     ])
 
-    # espaço amostral de hiperparâmetros
+    # Espaço amostral de hiperparâmetros
     param_grid = {
-        "model__n_estimators": [100, 200],  # Número de árvores na floresta
-        "model__max_depth": [10, 20],       # Profundidade máxima das árvores
-        "model__min_samples_split": [2, 5], # Número mínimo de amostras para dividir um nó
-        "model__max_features": ['auto', 'sqrt'],  # Número máximo de recursos a serem considerados para a melhor divisão
-        "model__bootstrap": [True, False]   # Se usar ou não amostragem com substituição
+        "model__n_estimators": [100, 200],
+        "model__max_depth": [10, 20],
+        "model__min_samples_split": [2, 5],
+        "model__max_features": ['auto', 'sqrt'],
+        "model__bootstrap": [True, False]
     }
 
     # TimeSeriesSplit para validação cruzada
@@ -131,23 +130,23 @@ with tab1:
         n_jobs=-1
     )
 
-    X = train.copy()  # inclui a coluna 'Price' no X para uso no pipeline de feature engineering
+    X = train.copy()
     y = train["Price"]
 
-    # fit do modelo
+    # Fit do modelo
     search.fit(X, y)
 
-    # acessando o melhor modelo encontrado
+    # Acessando o melhor modelo encontrado
     best_model = search.best_estimator_
 
-    # extraindo o transformador de engenharia de features
+    # Extraindo o transformador de engenharia de features
     feature_engineering = best_model.named_steps["feature_engineering"]
 
-    # transformando X para obter o nome das features geradas
+    # Transformando X para obter o nome das features geradas
     X_transformed = feature_engineering.transform(X)
     feature_names = X_transformed.columns
 
-    # acessando as importâncias das features
+    # Acessando as importâncias das features
     importances = best_model.named_steps["model"].feature_importances_
 
     # DataFrame para as importâncias das features
@@ -157,32 +156,29 @@ with tab1:
     }).sort_values(by="Importance", ascending=False)
     
     from sklearn.metrics import (
-    mean_absolute_error,
-    mean_absolute_percentage_error,
-    r2_score
+        mean_absolute_error,
+        mean_absolute_percentage_error,
+        r2_score
     )
     import plotly.graph_objects as go
 
-    # extraindo as features e o target
+    # Extraindo as features e o target
     X_test = test.copy()
     y_test = test["Price"]
 
-    # previsões no conjunto de teste
+    # Previsões no conjunto de teste
     y_pred = search.predict(X_test)
 
-    # avaliação da performance
+    # Avaliação da performance
     mae = mean_absolute_error(y_test, y_pred)
     mape = mean_absolute_percentage_error(y_test, y_pred)
     r2 = r2_score(y_test, y_pred)
 
-    # plot das previsões vs valores reais
-
-    # Dados para o gráfico
+    # Plot das previsões vs valores reais
     y_test_index = y_test.index
     y_test_values = y_test.values.flatten()
     y_pred_values = y_pred.flatten()
 
-    # Criação do gráfico interativo
     fig2 = go.Figure()
 
     # Adicionando os dados reais
@@ -200,7 +196,6 @@ with tab1:
                     yaxis_title='US$',
                     legend=dict(x=0, y=1),
                     hovermode='x unified')
-    
     
     # Criação do gráfico de barras das features usando Plotly
     fig1 = go.Figure()
@@ -232,10 +227,10 @@ with tab1:
     ## Métricas de avaliação da previsão:
     """)
     
-    # Format the values
+    # Formatando os valores
     mae_formatted = f"{mae:.2f}"
     mape_formatted = f"{mape * 100:.2f}%"
-    r2_formatted = f"{r2 * 100:.2f}%"  # Convert r2 to percentage
+    r2_formatted = f"{r2 * 100:.2f}%"  # Convertendo r2 para porcentagem
     col1, col2, col3 = st.columns(3)
 
     col1.metric(label="Mean Absolute Error", value=mae_formatted)
@@ -247,7 +242,7 @@ with tab1:
     No gráfico a seguir pode ser visto a importância de cada feature para que o modelo execute a previsão, aonde lag_x é o dado do dia anterior em x dias e rolling_mean é a média dos últimos 7 dias.
     """)
     st.plotly_chart(fig1)
-    # Remove the loading message after the process is done
+    # Removendo a mensagem de carregamento após o processo ser concluído
     loading_message.empty()
     st.markdown("""
     ## Importância de cada feature para o modelo
@@ -258,28 +253,28 @@ with tab2:
     st.markdown("""
     # Previsão para 10 dias
     """)
-    # Display the introductory text
+    # Exibindo o texto introdutório
     st.markdown("""
     Realizou-se também um treinamento do modelo para que o mesmo efetue a previsão para os próximos 10 dias. As métricas do resultado e as features utilizadas são apresentadas a seguir:
     """)
 
-    # Define the paths to the images
+    # Definindo os caminhos para as imagens
     image_path1 = os.path.join('Imagens', 'metricasd10.png')
     image_path2 = os.path.join('Imagens', 'featuresd10.png')
 
-    # Load the images
+    # Carregando as imagens
     imagemetricas = Image.open(image_path1)
     imagefeatures = Image.open(image_path2)
 
-    # Create a 3-column layout
+    # Criando um layout de 3 colunas
     col1, col2 = st.columns([2, 1])
 
-    # Place the images in the left column
+    # Colocando as imagens na coluna esquerda
     with col1:
         st.image(imagemetricas, caption='Métricas Observadas', use_column_width=True)
         st.image(imagefeatures, caption='Peso das Features', use_column_width=True)
 
-    # Display the concluding text
+    # Exibindo o texto de conclusão
     st.markdown("""
     Observa-se um erro que cresce de forma proporcional à quantidade de dias de previsão, o que é esperado, pois o modelo usa o output de uma previsão D+1 para input da previsão D+2, o que adiciona incertezas de forma sucessiva na previsão dos dias seguintes. Isso faz com que as previsões carreguem cada vez mais erros, e não sejam tão confiáveis para uma quantidade maior de dias.
     """)
