@@ -7,3 +7,4 @@ streamlit>=1.10
 Pillow>=9.0
 dash
 yfinance
+scikit-learn
