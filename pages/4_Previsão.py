@@ -12,7 +12,10 @@ import os
 from PIL import Image
 
 # Set locale to Brazilian Portuguese
-locale.setlocale(locale.LC_TIME, 'pt_BR.UTF-8')
+try:
+    locale.setlocale(locale.LC_TIME, 'pt_BR.UTF-8')
+except locale.Error:
+    print("Locale pt_BR.UTF-8 não está disponível. Usando o padrão.")
 
 st.title('Previsão com ML')
 
