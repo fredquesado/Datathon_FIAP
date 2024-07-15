@@ -352,23 +352,11 @@ with tab4:
             Os gráficos fornecem uma visão abrangente da dinâmica dos preços do petróleo Brent ao longo das últimas décadas. O histograma destaca a predominância de preços mais baixos, enquanto o gráfico de barras ilustra a tendência geral de aumento com picos e quedas significativas. Esses gráficos juntos revelam a natureza volátil e influenciada por múltiplos fatores do mercado de petróleo, refletindo as complexas interações entre oferta, demanda, eventos geopolíticos e crises econômicas globais.
     """)
 with tab6:
-    st.markdown("""
-    <style>
-    .big-font {
-        font-size: 20px !important;
-        margin-bottom: 15px;
-        text-indent: 40px;
-        max-width: 1000px; /* Define a largura máxima do texto */
-        margin-left: 20; /* Alinha o texto à esquerda */
-    }
-    </style>
-    """, unsafe_allow_html=True)
+    st.markdown('Foi investigado aqui uma relação entre o preço do petróleo Brent e o preço do dólar, uma vez que o petróleo é cotado em dólares no mercado internacional. Quando o dólar se valoriza, o preço do petróleo tende a cair, pois se torna mais caro em outras moedas, reduzindo a demanda global. Por outro lado, quando o dólar se desvaloriza, o preço do petróleo geralmente sobe, tornando-o mais acessível internacionalmente e aumentando a demanda. Essa dinâmica reflete a sensibilidade do mercado de petróleo às flutuações cambiais e à interdependência entre commodities e moedas. ')
 
-    st.markdown('<p class="big-font">Foi investigado aqui uma relação entre o preço do petróleo Brent e o preço do dólar, uma vez que o petróleo é cotado em dólares no mercado internacional. Quando o dólar se valoriza, o preço do petróleo tende a cair, pois se torna mais caro em outras moedas, reduzindo a demanda global. Por outro lado, quando o dólar se desvaloriza, o preço do petróleo geralmente sobe, tornando-o mais acessível internacionalmente e aumentando a demanda. Essa dinâmica reflete a sensibilidade do mercado de petróleo às flutuações cambiais e à interdependência entre commodities e moedas. </p>', unsafe_allow_html=True)
+    st.markdown('Para investigar essa relação, utilizou-se o USDX. O USDX, ou Índice do Dólar dos Estados Unidos, é uma medida do valor do dólar norte-americano em relação a uma cesta de seis principais moedas estrangeiras: euro, iene japonês, libra esterlina, dólar canadense, coroa sueca e franco suíço. Ele oferece uma visão abrangente da força do dólar no mercado global. Utilizar o USDX para investigar a relação entre o preço do petróleo Brent e o preço do dólar é eficaz porque captura as variações do dólar em um contexto amplo.')
 
-    st.markdown('<p class="big-font">Para investigar essa relação, utilizou-se o USDX. O USDX, ou Índice do Dólar dos Estados Unidos, é uma medida do valor do dólar norte-americano em relação a uma cesta de seis principais moedas estrangeiras: euro, iene japonês, libra esterlina, dólar canadense, coroa sueca e franco suíço. Ele oferece uma visão abrangente da força do dólar no mercado global. Utilizar o USDX para investigar a relação entre o preço do petróleo Brent e o preço do dólar é eficaz porque captura as variações do dólar em um contexto amplo.</p>', unsafe_allow_html=True)
-
-    st.markdown('<p class="big-font">Utilizando-se a biblioteca do Yahoo Finance, obteve-se os dados do USDX para as mesmas datas contidas na database do Ipea, onde se construiu um gráfico e calculou-se a correlação:</p>', unsafe_allow_html=True)
+    st.markdown('Utilizando-se a biblioteca do Yahoo Finance, obteve-se os dados do USDX para as mesmas datas contidas na database do Ipea, onde se construiu um gráfico e calculou-se a correlação:')
     series = ip.list_series()
     data = ip.timeseries('EIA366_PBRENT366')
     data = data[["VALUE (US$)"]]
@@ -448,4 +436,4 @@ with tab6:
     with col2:
         st.metric(label="Correlação Observada", value=round(correlation, 2))
 
-    st.markdown('<p class="big-font">Observa-se uma correlação negativa, que é relevante mas não extremamente alta, pois existem outros fatores globais que influenciam nesse preço, como demanda, fatores geopoliticos, etc.</p>', unsafe_allow_html=True)
+    st.markdown('Observa-se uma correlação negativa, que é relevante mas não extremamente alta, pois existem outros fatores globais que influenciam nesse preço, como demanda, fatores geopoliticos, etc.')
