@@ -18,5 +18,7 @@ st.markdown("""
 ### Conclusões:
 
 Em conclusão, o projeto demonstrou a viabilidade e a importância de utilizar técnicas de machine learning para prever preços de commodities como o petróleo Brent. A aplicação de um modelo Random Forest, juntamente com visualizações interativas, forneceu uma abordagem compreensiva para a análise e previsão de preços, destacando-se como uma ferramenta crucial para investidores e indústrias dependentes do petróleo.
+
+
 Os insights obtidos com este projeto destacam a complexidade do mercado de petróleo e a importância de considerar múltiplos fatores ao prever os preços. A geopolítica, a força do dólar, a validade dos modelos preditivos e as políticas de energia renovável são todos elementos críticos que influenciam os preços do petróleo. Entender essas dinâmicas permite uma análise mais precisa e informada, essencial para a tomada de decisões estratégicas no setor energético.
 """, unsafe_allow_html=True)
