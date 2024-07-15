@@ -14,7 +14,7 @@ Clone o repositório e instale as dependências:
 git clone https://github.com/Vandrade85/TechChallenge4.git
 cd TechChallenge4
 pip install -r requirements.txt
-
+'''
 ### Deploy de Aplicações com Streamlit Cloud e GitHub
 
 **Sumário**
