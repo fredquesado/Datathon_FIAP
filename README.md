@@ -1,7 +1,7 @@
 # TechChallenge4
  Tech Challenge 4 para a pós na FIAP de Data Analytics
 
- Site com o trabalho:
+ Site com o trabalho: https://techchallenge4.streamlit.app/
  
 # Análise e Previsão do Preço do Petróleo Brent
 
