@@ -1,7 +1,7 @@
 # Datathon - Fiap
  Datathon é o trabalho final para a pós na FIAP de Data Analytics
 
- Site com o trabalho: https://techchallenge4.streamlit.app/
+ Site com o trabalho: https://fiap-datathon.streamlit.app/
  
 # Análise e Previsão do Preço do Petróleo Brent
 
