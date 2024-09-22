@@ -1,5 +1,5 @@
-# TechChallenge4
- Tech Challenge 4 para a pós na FIAP de Data Analytics
+# Datathon - Fiap
+ Datathon é o trabalho final para a pós na FIAP de Data Analytics
 
  Site com o trabalho: https://techchallenge4.streamlit.app/
  
