@@ -4,11 +4,11 @@ import base64
 from io import BytesIO
 
 # Configuração da página
-st.set_page_config(page_title="Tech Challenge 4", page_icon=":house:", layout='wide')
+st.set_page_config(page_title="DataThon", page_icon=":house:", layout='wide')
 st.sidebar.success("Selecione uma página acima.")
 
 # Carregar a imagem e aplicar transparência
-image = Image.open("Imagens/capa4.png").convert("RGBA")
+image = Image.open("Imagens/capa3.png").convert("RGBA")
 data = image.getdata()
 
 # Definir o nível de transparência
@@ -50,5 +50,5 @@ st.markdown(
 # Cabeçalho
 with st.container():
     st.title('Bem-vindo(a)')
-    st.markdown('<h1 style="font-family:Arial; font-size:60px; color:Black;">Tech Challenge 4</h1>', unsafe_allow_html=True)
-    st.markdown('<h1 style="font-family:Arial; font-size:20px; color:Black;">Estudo Abrangente sobre a Dinâmica dos Preços do Petróleo</h1>', unsafe_allow_html=True)
+    st.markdown('<h1 style="font-family:Arial; font-size:60px; color:Black;">Datathon - Fiap</h1>', unsafe_allow_html=True)
+    st.markdown('<h1 style="font-family:Arial; font-size:20px; color:Black;">Transformando dados em impacto: previsão e análise para uma educação mais inclusiva e eficaz</h1>', unsafe_allow_html=True)
