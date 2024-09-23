@@ -48,6 +48,6 @@ st.markdown('<h1>Desafio</h1>', unsafe_allow_html=True)
     
 st.markdown("""
 
-<p>Fomos escolhidos por um grande cliente para um projeto desafiador e estratégico: analisar a variação do preço do petróleo e desenvolver um modelo de machine learning capaz de prever o preço do petróleo nos próximos meses.</p>
-<p>Utilizaremos uma base de dados robusta proveniente do site IPEA, que disponibiliza os valores do preço por barril do petróleo bruto tipo Brent. Este projeto não só potencializa nossa expertise, mas também entrega valor ao cliente por meio de insights precisos e previsões assertivas.</p>
+<p>Fomos escolhidos para um projeto desafiador e estratégico: analisar o impacto educacional que a ONG Passos Mágicos tem gerado na comunidade que atende e desenvolver um modelo preditivo capaz de prever o desempenho futuro dos alunos.</p>
+<p>Utilizaremos uma base de dados extensa com informações educacionais dos anos de 2020, 2021 e 2023. Este projeto não só amplia nossa expertise em análise de dados, como também entrega insights valiosos para a ONG, ajudando a tomar decisões mais assertivas e transformar a vida de crianças e jovens em situação de vulnerabilidade social.</p>
 """, unsafe_allow_html=True)
