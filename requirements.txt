@@ -8,12 +8,4 @@ Pillow>=9.0
 dash
 yfinance
 scikit-learn>=0.24
-plotly.express
-seaborn
-numpy
-sklearn.model_selection 
-train_test_split
-sklearn.ensemble
-RandomForestRegressor
-sklearn.metrics
-mean_squared_error
+
