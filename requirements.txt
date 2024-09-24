@@ -8,9 +8,9 @@ Pillow>=9.0
 dash
 yfinance
 scikit-learn>=0.24
-plotly.express as px
-seaborn as sns
-numpy as np
+plotly.express
+seaborn
+numpy
 sklearn.model_selection 
 train_test_split
 sklearn.ensemble
