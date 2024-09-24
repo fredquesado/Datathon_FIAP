@@ -38,7 +38,7 @@ student_data = [
     {"nome": "Lucas Tabelini", "matricula": "RM352725"},
     {"nome": "Renan Carneiro", "matricula": "RM352715"},
     {"nome": "Vanessa Andrade", "matricula": "RM352921"},
-    # Adicione mais alunos conforme necessário
+    
 ]
 
 # Título da página
