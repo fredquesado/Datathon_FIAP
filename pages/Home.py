@@ -4,8 +4,9 @@ import base64
 from io import BytesIO
 
 def app():
-    # Configuração da página
+    # Configuração da página (precisa ser a primeira chamada do Streamlit)
     st.set_page_config(page_title="DataThon", page_icon=":house:", layout='wide')
+
     st.sidebar.success("Selecione uma página acima.")
 
     # Carregar a imagem e aplicar transparência
@@ -53,4 +54,3 @@ def app():
         st.title('Bem-vindo(a)')
         st.markdown('<h1 style="font-family:Arial; font-size:60px; color:Black;">Datathon - Fiap</h1>', unsafe_allow_html=True)
         st.markdown('<h1 style="font-family:Arial; font-size:20px; color:Black;">Transformando dados em impacto: previsão e análise para uma educação mais inclusiva e eficaz</h1>', unsafe_allow_html=True)
-
