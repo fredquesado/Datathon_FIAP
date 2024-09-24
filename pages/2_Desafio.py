@@ -48,6 +48,6 @@ st.markdown('<h1>Desafio</h1>', unsafe_allow_html=True)
     
 st.markdown("""
 
-<p>Fomos escolhidos para um projeto desafiador e estratégico: analisar o impacto educacional que a ONG Passos Mágicos tem gerado na comunidade que atende e desenvolver um modelo preditivo capaz de prever o desempenho futuro dos alunos.</p>
-<p>Utilizaremos uma base de dados extensa com informações educacionais dos anos de 2020, 2021 e 2023. Este projeto não só amplia nossa expertise em análise de dados, como também entrega insights valiosos para a ONG, ajudando a tomar decisões mais assertivas e transformar a vida de crianças e jovens em situação de vulnerabilidade social.</p>
+<p>O presente relatório visa apresentar uma análise detalhada dos dados educacionais de estudantes atendidos pelo programa Passos Mágicos nos anos de 2020, 2021 e 2022. O objetivo principal é avaliar o impacto do programa no desenvolvimento dos estudantes, com foco nos indicadores de desempenho e evolução ao longo do período analisado.</p>
+<p>A proposta analítica visa não apenas identificar as principais métricas e indicadores de desempenho, mas também fornecer insights sobre a evolução dos alunos e destacar as áreas onde o impacto da ONG é mais evidente.</p>
 """, unsafe_allow_html=True)
