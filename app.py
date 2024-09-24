@@ -1,5 +1,5 @@
 import streamlit as st
-from pages import Home, grupo, desafio, relatorio_analitico_preditivo, insights_conclusao
+from pages import Home, Grupo, Desafio, Relatorio_Analitico_Preditivo, Insights_e_Conclusao
 
 # Coloque esta configuração no início de app.py
 st.set_page_config(page_title="DataThon", page_icon=":house:", layout='wide')
@@ -7,10 +7,10 @@ st.set_page_config(page_title="DataThon", page_icon=":house:", layout='wide')
 # Mapeamento das páginas
 PAGES = {
     "Home": Home,
-    "Grupo": grupo,
-    "Desafio": desafio,
-    "Relatório": relatorio_analitico_preditivo,
-    "Insights": insights_conclusao,
+    "Grupo": Grupo,
+    "Desafio": Desafio,
+    "Relatório": Relatorio_Analitico_Preditivo,
+    "Insights": Insights_e_Conclusao,
 }
 
 if __name__ == "__main__":
