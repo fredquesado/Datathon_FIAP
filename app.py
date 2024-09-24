@@ -16,7 +16,6 @@ def main():
     selection = st.sidebar.radio("Ir para", list(PAGES.keys()))
     
     page = PAGES[selection]
-    page.app()
-
+    
 if __name__ == "__main__":
     main()
