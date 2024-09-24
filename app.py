@@ -2,7 +2,7 @@ import streamlit as st
 from pages import Home, grupo, desafio, relatorio_analitico_preditivo, insights_conclusao
 
 # Definir a configuração da página como a primeira ação
-st.set_page_config(page_title="DataThon", page_icon=":house:", layout='wide')
+st.set_page_config(page_title="DataThon", page_icon=":house:", layout='wide')  # Deve ser a primeira linha de Streamlit
 
 # Mapeamento das páginas com os nomes apropriados
 PAGES = {
