@@ -1,20 +1,22 @@
 import streamlit as st
-from pages import Home, grupo, desafio, relatorio_analitico_preditivo, insights_conclusao
+from pages import 1_Grupo, 2_Desafio, 3_Base_Histórica, 4_Previsão, 5_Insights_e_Conclusão
 
-# Mapeamento das páginas com os nomes apropriados
+# Mapeamento das páginas
 PAGES = {
     "Home": Home,
-    "Grupo": grupo,
-    "Desafio": desafio,
-    "Relatório": relatorio_analitico_preditivo,
-    "Insights": insights_conclusao,
+    "Grupo": 1_Grupo,
+    "Desafio": 2_Desafio,
+    "Base Histórica": 3_Base_Histórica,
+    "Previsão": 4_Previsão,
+    "Insights e Conclusão": 5_Insights_e_Conclusão,
 }
 
 def main():
     st.sidebar.title('Menu de Navegação')
-    selection = st.sidebar.radio("Ir para", list(PAGES.keys()))  # Exibe os títulos corretos no menu
+    selection = st.sidebar.radio("Ir para", list(PAGES.keys()))
+    
     page = PAGES[selection]
-    page.app()  # Chama a função app() de cada página
+    page.app()
 
 if __name__ == "__main__":
     main()
