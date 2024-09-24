@@ -14,8 +14,11 @@ PAGES = {
 }
 
 def main():
+    # Configurar o menu de navegação
     st.sidebar.title('Menu de Navegação')
     selection = st.sidebar.radio("Ir para", list(PAGES.keys()))  # Exibe os títulos corretos no menu
+    
+    # Seleciona e chama a página correta
     page = PAGES[selection]
     page.app()  # Chama a função app() de cada página
 
