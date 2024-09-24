@@ -14,7 +14,7 @@ Proposta Preditiva: Utiliza algoritmos de aprendizado supervisionado ou não sup
 
 A aplicação oferece uma plataforma interativa para explorar as variáveis mais relevantes e gerar insights valiosos para o aprimoramento das iniciativas educacionais da ONG.
 
-## Instalação do pácote - MVP Streamlit 
+## Instalação do pacote - MVP Streamlit 
 Clone o repositório e instale as dependências:
 ```bash
 git clone https://github.com/Vandrade85/Fiap_Datathon.git
