@@ -1,13 +1,13 @@
 import streamlit as st
-from pages import Home, grupo_1, desafio_2, relatorio_analitico_preditivo_3, insights_conclusao_4
+from pages import Home, grupo, desafio, relatorio_analitico_preditivo, insights_conclusao
 
 # Mapeamento das páginas com os nomes apropriados
 PAGES = {
     "Home": Home,
-    "Grupo": grupo_1,
-    "Desafio": desafio_2,
-    "Relatório": relatorio_analitico_preditivo_3,
-    "Insights": insights_conclusao_4,
+    "Grupo": grupo,
+    "Desafio": desafio,
+    "Relatório": relatorio_analitico_preditivo,
+    "Insights": insights_conclusao,
 }
 
 def main():
