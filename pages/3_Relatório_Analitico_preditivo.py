@@ -12,7 +12,8 @@ from sklearn.metrics import mean_squared_error
 st.title("Análise de Performance - ONG Passos Mágicos")
 
 # Caminho do arquivo
-file_path = "/workspaces/Fiap_Datathon/Arquivos/PEDE_PASSOS_DATASET_FIAP.csv"
+file_path = "/Arquivos/PEDE_PASSOS_DATASET_FIAP.csv"
+
 
 # Usando bloco try para evitar erro de arquivo
 try:
