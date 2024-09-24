@@ -9,8 +9,8 @@ PAGES = {
     "Home": Home,
     "Grupo": grupo,
     "Desafio": desafio,
-    "Relatório Analitico Preditivo": relatorio_analitico_preditivo,
-    "Insights e Conclusão": insights_conclusao,
+    "Relatório": relatorio_analitico_preditivo,
+    "Insights": insights_conclusao,
 }
 
 def main():
@@ -20,4 +20,4 @@ def main():
     page.app()  # Chama a função app() de cada página
 
 if __name__ == "__main__":
-    main()
+    main()  # Certifique-se de que esta linha existe para chamar a função main
