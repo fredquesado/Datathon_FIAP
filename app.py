@@ -1,5 +1,5 @@
 import streamlit as st
-from pages import Grupo, Desafio, Relatorio_Analitico_Preditivo, Insights_e_Conclusão
+from pages import Home, Grupo, Desafio, Relatorio_Analitico_Preditivo, Insights_e_Conclusão
 
 # Mapeamento das páginas
 PAGES = {
