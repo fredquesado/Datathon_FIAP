@@ -4,7 +4,7 @@ import base64
 from io import BytesIO
 
 def app():
-    # Configuração da página (precisa ser a primeira chamada do Streamlit)
+    # Configuração da página deve ser a primeira linha
     st.set_page_config(page_title="DataThon", page_icon=":house:", layout='wide')
 
     st.sidebar.success("Selecione uma página acima.")
