@@ -1,13 +1,13 @@
 import streamlit as st
-from pages import Home, 1_Grupo, 2_Desafio, 3_Relatorio_Analitico_preditivo, 4_Insights_e_Conclusão
+from pages import Home, grupo_1, desafio_2, relatorio_analitico_preditivo_3, insights_conclusao_4
 
 # Mapeamento das páginas
 PAGES = {
     "Home": Home,
-    "Grupo": 1_Grupo,
-    "Desafio": 2_Desafio,
-    "Base Histórica": 3_Relatorio_Analitico_preditivo,
-    "Insights e Conclusão": 4_Insights_e_Conclusao,
+    "Grupo": grupo_1,
+    "Desafio": desafio_2,
+    "Base Histórica": relatorio_analitico_preditivo_3,
+    "Insights e Conclusão": insights_conclusao_4,
 }
 
 def main():
