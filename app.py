@@ -1,17 +1,23 @@
 import streamlit as st
-from pages import Home, Grupo, Desafio, Relatorio_Analitico_Preditivo, Insights_e_Conclusao
+from pages import Home, grupo, desafio, relatorio_analitico_preditivo, insights_conclusao
 
-# Coloque esta configuração no início de app.py
+# Definir a configuração da página como a primeira ação
 st.set_page_config(page_title="DataThon", page_icon=":house:", layout='wide')
 
-# Mapeamento das páginas
+# Mapeamento das páginas com os nomes apropriados
 PAGES = {
     "Home": Home,
-    "Grupo": Grupo,
-    "Desafio": Desafio,
-    "Relatório": Relatorio_Analitico_Preditivo,
-    "Insights": Insights_e_Conclusao,
+    "Grupo": grupo,
+    "Desafio": desafio,
+    "Relatório Analitico Preditivo": relatorio_analitico_preditivo,
+    "Insights e Conclusão": insights_conclusao,
 }
+
+def main():
+    st.sidebar.title('Menu de Navegação')
+    selection = st.sidebar.radio("Ir para", list(PAGES.keys()))  # Exibe os títulos corretos no menu
+    page = PAGES[selection]
+    page.app()  # Chama a função app() de cada página
 
 if __name__ == "__main__":
     main()
