@@ -102,7 +102,9 @@ st.markdown(
     <div class="badge-container">
         <div class="badge">
             <h1>Desafio</h1>
-            <h2>Análise detalhada dos dados educacionais de estudantes atendidos pelo programa Passos Mágicos.</h2>
+            <h2><p>O presente relatório visa apresentar uma análise detalhada dos dados educacionais de estudantes atendidos pelo programa Passos Mágicos nos anos de 2020, 2021 e 2022. 
+                <p>O objetivo principal é avaliar o impacto do programa no desenvolvimento dos estudantes, com foco nos indicadores de desempenho e evolução ao longo do período analisado.
+                <p>A proposta analítica visa não apenas identificar as principais métricas e indicadores de desempenho, mas também fornecer insights sobre a evolução dos alunos e destacar as áreas onde o impacto da ONG é mais evidente.</h2>
         </div>
     </div>
     """,
