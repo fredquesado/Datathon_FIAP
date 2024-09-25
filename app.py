@@ -19,9 +19,7 @@ PAGES = {
     "Insights e Conclusão": Insights_e_Conclusoes,
 }
 
-   # Carregar a página selecionada
-    page = PAGES[selection]
-    
+
     # Exibir o conteúdo da página selecionada
     page.main()  # Supondo que cada módulo tenha uma função `main()` que renderiza a página
 
