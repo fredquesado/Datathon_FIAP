@@ -17,22 +17,6 @@ PAGES = {
     "Insights e Conclusão": Insights_e_Conclusoes,
 }
 
-# Definir a função main
-def main():
-    st.sidebar.title('Menu de Navegação')
-    
-    # Definir 'Home' como a página padrão
-    default_page = "Home"
-    
-    # Sidebar com valor padrão definido para "Home"
-    selection = st.sidebar.radio("Ir para", list(PAGES.keys()), index=list(PAGES.keys()).index(default_page))
-    
-    # Carregar a página selecionada
-    page = PAGES[selection]
-    
-    # Exibir o conteúdo da página selecionada
-    page.main()  # Supondo que cada módulo tenha uma função `main()` que renderiza a página
-
 # Chamar a função main dentro do bloco correto
 if __name__ == "__main__": 
     main()
