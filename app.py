@@ -19,11 +19,7 @@ PAGES = {
     "Insights e Conclusão": Insights_e_Conclusoes,
 }
 
-def main():
-    st.sidebar.title('Menu de Navegação')
-    selection = st.sidebar.radio("Ir para", list(PAGES.keys()))
-    
-    # Carregar a página selecionada
+   # Carregar a página selecionada
     page = PAGES[selection]
     
     # Exibir o conteúdo da página selecionada
