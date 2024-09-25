@@ -19,9 +19,5 @@ PAGES = {
     "Insights e Conclusão": Insights_e_Conclusoes,
 }
 
-
-    # Exibir o conteúdo da página selecionada
-    page.main()  # Supondo que cada módulo tenha uma função `main()` que renderiza a página
-
 if __name__ == "__main__":
     main()
