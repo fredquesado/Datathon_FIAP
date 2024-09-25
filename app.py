@@ -1,13 +1,21 @@
 import streamlit as st
-from pages import Grupo, Desafio, Relatório_Analitico_Preditivo, Previsão, Insights_e_Conclusoes
+import importlib
+
+# Importar módulos usando importlib para lidar com nomes com acentos
+Grupo = importlib.import_module('pages.1_Grupo')
+Desafio = importlib.import_module('pages.2_Desafio')
+Relatorio_Analitico_Preditivo = importlib.import_module('pages.3_Relatório_Analitico_Preditivo')
+Insights_e_Conclusoes = importlib.import_module('pages.5_Insights_e_Conclusoes')
+
+# Se o arquivo Home for necessário, importe também (caso o nome do arquivo tenha acento, use importlib)
+Home = importlib.import_module('pages.0_Home')
 
 # Mapeamento das páginas
 PAGES = {
     "Home": Home,
     "Grupo": Grupo,
     "Desafio": Desafio,
-    "Relatório Analitico Preditivo": Relatório_Analitico_Preditivo,
-    "Previsão": Previsão,
+    "Relatório Analitico Preditivo": Relatorio_Analitico_Preditivo,
     "Insights e Conclusão": Insights_e_Conclusoes,
 }
 
@@ -15,7 +23,11 @@ def main():
     st.sidebar.title('Menu de Navegação')
     selection = st.sidebar.radio("Ir para", list(PAGES.keys()))
     
+    # Carregar a página selecionada
     page = PAGES[selection]
     
+    # Exibir o conteúdo da página selecionada
+    page.main()  # Supondo que cada módulo tenha uma função `main()` que renderiza a página
+
 if __name__ == "__main__":
     main()
