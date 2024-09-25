@@ -93,12 +93,3 @@ with st.container():
 
 # Espaçamento
 st.write("")
-
-# Adicionar botões de navegação estilizados
-col1, col2, col3 = st.columns([1, 1, 1])
-with col1:
-    st.button('Página Inicial')
-with col2:
-    st.button('Relatórios')
-with col3:
-    st.button('Contato')
