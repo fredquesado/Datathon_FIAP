@@ -77,6 +77,25 @@ st.markdown(
         background-color: #990033;
     }}
 
+    /* Badge estilizada */
+    .badge {{
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 1.5em;
+        font-weight: 600;
+        color: white;
+        background-color: #800020;
+        border-radius: 50px;
+        text-align: center;
+        margin: 0 auto;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    }}
+
+    .badge-container {{
+        display: flex;
+        justify-content: center;
+        margin-top: 50px;
+    }}
     </style>
     """,
     unsafe_allow_html=True
@@ -93,3 +112,15 @@ with st.container():
 
 # Espaçamento
 st.write("")
+
+# Criar o badge com o texto dentro
+st.markdown(
+    """
+    <div class="badge-container">
+        <div class="badge">
+            Texto dentro da badge centralizada
+        </div>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
