@@ -9,24 +9,14 @@ st.sidebar.success("Selecione uma página acima.")
 
 # Carregar a imagem e aplicar transparência
 image = Image.open("Imagens/capa4.png").convert("RGBA")
-data = image.getdata()
 
-# Definir o nível de transparência
-transparency_level = 100  # Pode variar de 0 (completamente transparente) a 255 (opaco)
-
-new_data = []
-for item in data:
-    # Alterar apenas os pixels que não são totalmente transparentes
-    if item[3] > 0:
-        new_data.append((item[0], item[1], item[2], transparency_level))
-    else:
-        new_data.append(item)
-
-image.putdata(new_data)
+# Aplicar transparência diretamente na imagem
+transparency_level = 100  # Defina o nível de transparência (0-255)
+image.putalpha(transparency_level)
 
 # Redimensionar a imagem
-new_width = 1600  # Define a nova largura desejada
-new_height = 800  # Define a nova altura desejada
+new_width = 1600  # Defina a nova largura desejada
+new_height = 800  # Defina a nova altura desejada
 resized_image = image.resize((new_width, new_height))
 
 # Converter a imagem redimensionada para base64
@@ -48,10 +38,7 @@ st.markdown(
 
     /* Centralizando o conteúdo */
     .block-container {{
-        padding-top: 5%;
-        padding-bottom: 5%;
-        padding-left: 15%;
-        padding-right: 15%;
+        padding: 5% 15%;
     }}
     
     h1 {{
