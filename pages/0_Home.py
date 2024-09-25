@@ -38,10 +38,26 @@ img_str = base64.b64encode(buffered.getvalue()).decode()
 st.markdown(
     f"""
     <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+    
     .stApp {{
         background: url(data:image/png;base64,{img_str}) no-repeat center center fixed;
         background-size: cover;
     }}
+    
+    h1 {{
+        font-family: 'Poppins', sans-serif;
+        font-weight: 600;
+        color: #007BFF;
+        text-shadow: 1px 1px 2px #000;
+    }}
+    
+    h2 {{
+        font-family: 'Poppins', sans-serif;
+        font-weight: 400;
+        color: #212529;
+    }}
+    
     </style>
     """,
     unsafe_allow_html=True
@@ -49,6 +65,6 @@ st.markdown(
 
 # Cabeçalho
 with st.container():
-    st.title('Bem-vindo(a)')
-    st.markdown('<h1 style="font-family:Arial; font-size:60px; color:Black;">Datathon - Fiap</h1>', unsafe_allow_html=True)
-    st.markdown('<h1 style="font-family:Arial; font-size:20px; color:Black;">Transformando dados em impacto: previsão e análise para uma educação mais inclusiva e eficaz</h1>', unsafe_allow_html=True)
+    st.markdown('<h1 style="font-size:60px;">Bem-vindo(a)</h1>', unsafe_allow_html=True)
+    st.markdown('<h1 style="font-size:50px;">Datathon - Fiap</h1>', unsafe_allow_html=True)
+    st.markdown('<h2 style="font-size:20px;">Transformando dados em impacto: previsão e análise para uma educação mais inclusiva e eficaz</h2>', unsafe_allow_html=True)
