@@ -34,37 +34,85 @@ buffered = BytesIO()
 resized_image.save(buffered, format="PNG")
 img_str = base64.b64encode(buffered.getvalue()).decode()
 
-# Adicionar a imagem de fundo
+# Adicionar a imagem de fundo com gradiente
 st.markdown(
     f"""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
     
     .stApp {{
-        background: url(data:image/png;base64,{img_str}) no-repeat center center fixed;
+        background: linear-gradient(to bottom right, #f0f0f5, #800020), 
+                    url(data:image/png;base64,{img_str}) no-repeat center center fixed;
         background-size: cover;
+        color: #ffffff;  /* Cor do texto principal */
+    }}
+
+    /* Centralizando o conteúdo */
+    .block-container {{
+        padding-top: 5%;
+        padding-bottom: 5%;
+        padding-left: 15%;
+        padding-right: 15%;
     }}
     
     h1 {{
         font-family: 'Poppins', sans-serif;
-        font-weight: 600;
-        color: #212529;
-        text-shadow: 1px 1px 2px #000;
+        font-weight: 700;
+        color: #800020;  /* Título bordô */
+        text-align: center;
+        font-size: 4em;
+        text-shadow: 2px 2px 4px #000000;
+        margin-bottom: 20px;
     }}
     
     h2 {{
         font-family: 'Poppins', sans-serif;
         font-weight: 400;
-        color: #212529;
+        color: #ffffff;
+        text-align: center;
+        font-size: 1.5em;
+        margin-bottom: 50px;
+        line-height: 1.5;
     }}
-    
+
+    /* Estilo para botões de navegação */
+    .stButton>button {{
+        background-color: #800020;
+        color: #ffffff;
+        font-size: 1.2em;
+        padding: 10px 20px;
+        border-radius: 5px;
+        border: none;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease;
+    }}
+
+    .stButton>button:hover {{
+        background-color: #990033;
+    }}
+
     </style>
     """,
     unsafe_allow_html=True
 )
 
-# Cabeçalho
+# Cabeçalho e descrição principal
 with st.container():
-    st.markdown('<h1 style="font-size:60px;">Bem-vindo(a)</h1>', unsafe_allow_html=True)
-    st.markdown('<h1 style="font-size:50px;">Datathon - Fiap</h1>', unsafe_allow_html=True)
-    st.markdown('<h2 style="font-size:20px;">Transformando dados em impacto: previsão e análise para uma educação mais inclusiva e eficaz</h2>', unsafe_allow_html=True)
+    st.markdown('<h1>Bem-vindo(a)</h1>', unsafe_allow_html=True)
+    st.markdown('<h1>Datathon - Fiap</h1>', unsafe_allow_html=True)
+    st.markdown(
+        '<h2>Transformando dados em impacto: previsão e análise para uma educação mais inclusiva e eficaz</h2>',
+        unsafe_allow_html=True
+    )
+
+# Espaçamento
+st.write("")
+
+# Adicionar botões de navegação estilizados
+col1, col2, col3 = st.columns([1, 1, 1])
+with col1:
+    st.button('Página Inicial')
+with col2:
+    st.button('Relatórios')
+with col3:
+    st.button('Contato')
