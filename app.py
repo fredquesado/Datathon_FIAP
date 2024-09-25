@@ -3,8 +3,8 @@ from pages import Grupo, Desafio, Relatório_Analitico_Preditivo, Previsão, Ins
 
 # Mapeamento das páginas
 PAGES = {
-    "Home": Home,
-    "Grupo": Grupo,
+    "Home": Home 0,
+    "Grupo": Grupo_1,
     "Desafio": Desafio,
     "Relatório Analitico Preditivo": Relatório_Analitico_Preditivo,
     "Previsão": Previsão,
