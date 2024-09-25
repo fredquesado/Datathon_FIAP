@@ -50,7 +50,7 @@ st.markdown(
         font-family: 'Poppins', sans-serif;
         font-weight: 400;
         color: black;  /* Texto preto */
-        text-align: center;
+        text-align: left;  /* Alinhamento à esquerda */
         font-size: 1.2em;  /* Diminuído para 1.2em */
         margin-bottom: 50px;
         line-height: 1.5;
@@ -102,9 +102,11 @@ st.markdown(
     <div class="badge-container">
         <div class="badge">
             <h1>Desafio</h1>
-            <h2><p>O presente relatório visa apresentar uma análise detalhada dos dados educacionais de estudantes atendidos pelo programa Passos Mágicos nos anos de 2020, 2021 e 2022. 
-                <p>O objetivo principal é avaliar o impacto do programa no desenvolvimento dos estudantes, com foco nos indicadores de desempenho e evolução ao longo do período analisado.
-                <p>A proposta analítica visa não apenas identificar as principais métricas e indicadores de desempenho, mas também fornecer insights sobre a evolução dos alunos e destacar as áreas onde o impacto da ONG é mais evidente.</h2>
+            <h2>
+                <p>O presente relatório visa apresentar uma análise detalhada dos dados educacionais de estudantes atendidos pelo programa Passos Mágicos nos anos de 2020, 2021 e 2022.</p>
+                <p>O objetivo principal é avaliar o impacto do programa no desenvolvimento dos estudantes, com foco nos indicadores de desempenho e evolução ao longo do período analisado.</p>
+                <p>A proposta analítica visa não apenas identificar as principais métricas e indicadores de desempenho, mas também fornecer insights sobre a evolução dos alunos e destacar as áreas onde o impacto da ONG é mais evidente.</p>
+            </h2>
         </div>
     </div>
     """,
