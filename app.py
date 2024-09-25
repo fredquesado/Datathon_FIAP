@@ -19,7 +19,7 @@ PAGES = {
 
 # Definir a função main
 def main():
-    st.title("Home")
+    st.title(""Para iniciar a navegação utilize o menu lateral esquerdo"")
 
 # Chamar a função main dentro do bloco correto
 if __name__ == "__main__":
