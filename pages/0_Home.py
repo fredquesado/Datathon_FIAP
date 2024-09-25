@@ -102,7 +102,6 @@ st.markdown(
     """
     <div class="badge-container">
         <div class="badge">
-            <h1>Bem-vindo(a)</h1>
             <h1>Datathon - Fiap</h1>
             <h2>Transformando dados em impacto: previsão e análise para uma educação mais inclusiva e eficaz</h2>
         </div>
