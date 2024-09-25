@@ -46,7 +46,7 @@ st.markdown(
         font-weight: 700;
         color: #800020;  /* Título bordô */
         text-align: center;
-        font-size: 4em;
+        font-size: 3em;  /* Diminuído para 3em */
         text-shadow: 2px 2px 4px #000000;
         margin-bottom: 20px;
     }}
@@ -56,7 +56,7 @@ st.markdown(
         font-weight: 400;
         color: #ffffff;
         text-align: center;
-        font-size: 1.5em;
+        font-size: 1.2em;  /* Diminuído para 1.2em */
         margin-bottom: 50px;
         line-height: 1.5;
     }}
@@ -77,14 +77,14 @@ st.markdown(
         background-color: #990033;
     }}
 
-    /* Badge estilizada */
+    /* Badge estilizada esbranquiçada com texto preto */
     .badge {{
         display: inline-block;
         padding: 10px 20px;
-        font-size: 1.5em;
+        font-size: 1.2em;  /* Diminuído para 1.2em */
         font-weight: 600;
-        color: white;
-        background-color: #800020;
+        color: black;  /* Texto em preto */
+        background-color: rgba(255, 255, 255, 0.7);  /* Badge esbranquiçada */
         border-radius: 50px;
         text-align: center;
         margin: 0 auto;
