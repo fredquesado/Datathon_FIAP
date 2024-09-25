@@ -101,24 +101,14 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-
-    )
-
-# Espaçamento
-st.write("")
-
-# Criar o badge com o texto dentro
+# Cabeçalho e descrição principal dentro da badge
 st.markdown(
     """
     <div class="badge-container">
         <div class="badge">
-            # Cabeçalho e descrição principal
-with st.container():
-    st.markdown('<h1>Bem-vindo(a)</h1>', unsafe_allow_html=True)
-    st.markdown('<h1>Datathon - Fiap</h1>', unsafe_allow_html=True)
-    st.markdown(
-        '<h2>Transformando dados em impacto: previsão e análise para uma educação mais inclusiva e eficaz</h2>',
-        unsafe_allow_html=True
+            <h1>Bem-vindo(a)</h1>
+            <h1>Datathon - Fiap</h1>
+            <h2>Transformando dados em impacto: previsão e análise para uma educação mais inclusiva e eficaz</h2>
         </div>
     </div>
     """,
