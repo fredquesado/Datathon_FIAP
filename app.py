@@ -19,14 +19,14 @@ PAGES = {
 
 # Definir a função main
 def main():
-    st.title("Datathon FIAP")
+    st.title("Menu de Navegação")
 
-    # Adicionar botões na interface principal
-    selection = st.selectbox("Selecione a página", list(PAGES.keys()))
-    
+    # Exibir o menu de navegação na parte principal da página
+    selection = st.selectbox("Escolha a página", list(PAGES.keys()), index=0)
+
     # Carregar a página selecionada
     page = PAGES[selection]
-    
+
     # Exibir o conteúdo da página selecionada
     page.main()  # Supondo que cada módulo tenha uma função `main()` que renderiza a página
 
