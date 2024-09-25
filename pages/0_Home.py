@@ -101,13 +101,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# Cabeçalho e descrição principal
-with st.container():
-    st.markdown('<h1>Bem-vindo(a)</h1>', unsafe_allow_html=True)
-    st.markdown('<h1>Datathon - Fiap</h1>', unsafe_allow_html=True)
-    st.markdown(
-        '<h2>Transformando dados em impacto: previsão e análise para uma educação mais inclusiva e eficaz</h2>',
-        unsafe_allow_html=True
+
     )
 
 # Espaçamento
@@ -118,7 +112,13 @@ st.markdown(
     """
     <div class="badge-container">
         <div class="badge">
-            Texto dentro da badge centralizada
+            # Cabeçalho e descrição principal
+with st.container():
+    st.markdown('<h1>Bem-vindo(a)</h1>', unsafe_allow_html=True)
+    st.markdown('<h1>Datathon - Fiap</h1>', unsafe_allow_html=True)
+    st.markdown(
+        '<h2>Transformando dados em impacto: previsão e análise para uma educação mais inclusiva e eficaz</h2>',
+        unsafe_allow_html=True
         </div>
     </div>
     """,
