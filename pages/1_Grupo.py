@@ -17,15 +17,47 @@ def get_base64_image(image_path):
 background_image_path = "Imagens/capa4.png"
 background_image_base64 = get_base64_image(background_image_path)
 
-# Definir a imagem de fundo com transparência
+# Definir a imagem de fundo com transparência e adicionar o gradiente
 st.markdown(
     f"""
     <style>
     .stApp {{
-        background: linear-gradient(to bottom, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), 
+        background: linear-gradient(to bottom, rgba(128, 0, 32, 0.5), rgba(255, 255, 255, 0.5)), 
                     url(data:image/png;base64,{background_image_base64}) no-repeat center center fixed;
         background-size: cover;
     }}
+
+    /* Centraliza o conteúdo principal */
+    .block-container {{
+        padding: 5% 15%;
+    }}
+
+    /* Estilo da badge de aluno */
+    .badge {{
+        background-color: rgba(255, 255, 255, 0.9);  /* Leve transparência no fundo */
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);  /* Sombra suave */
+        margin-bottom: 10px;
+    }}
+
+    /* Estilo do título da página */
+    h1 {{
+        font-family: 'Poppins', sans-serif;
+        font-weight: 700;
+        color: #2e4053;  /* Azul-acinzentado */
+        text-align: center;
+        font-size: 2.5em;
+    }}
+
+    /* Estilo dos parágrafos com informações */
+    p {{
+        font-family: 'Poppins', sans-serif;
+        color: #800020;  /* Bordô */
+        font-size: 1.2em;
+        margin: 0;
+    }}
+
     </style>
     """,
     unsafe_allow_html=True
@@ -42,18 +74,18 @@ student_data = [
 ]
 
 # Título da página
-st.markdown('<h1 style="font-family:Arial; font-size:40px; color:Black;">Grupo Responsável</h1>', unsafe_allow_html=True)
+st.markdown('<h1>Grupo Responsável</h1>', unsafe_allow_html=True)
 
 # Dividir em duas colunas
 left_column, right_column = st.columns(2)
 
-# Exibir informações dos alunos usando badges
+# Exibir informações dos alunos usando badges estilizadas
 for i, student in enumerate(student_data):
     column = left_column if i % 2 == 0 else right_column
     with column:
         st.markdown(
             f"""
-            <div style="border: 1px solid #ddd; padding: 10px; border-radius: 5px; margin-bottom: 10px; background-color: rgba(255, 255, 255, 0.8);">
+            <div class="badge">
                 <p><strong>Nome:</strong> {student['nome']}</p>
                 <p><strong>Número de Matrícula:</strong> {student['matricula']}</p>
             </div>
