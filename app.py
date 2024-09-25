@@ -17,6 +17,19 @@ PAGES = {
     "Insights e Conclusão": Insights_e_Conclusoes,
 }
 
+# Definir a função main
+def main():
+    st.title("Datathon FIAP")
+
+    # Adicionar botões na interface principal
+    selection = st.selectbox("Selecione a página", list(PAGES.keys()))
+    
+    # Carregar a página selecionada
+    page = PAGES[selection]
+    
+    # Exibir o conteúdo da página selecionada
+    page.main()  # Supondo que cada módulo tenha uma função `main()` que renderiza a página
+
 # Chamar a função main dentro do bloco correto
-if __name__ == "__main__": 
+if __name__ == "__main__":
     main()
