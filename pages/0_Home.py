@@ -34,15 +34,14 @@ buffered = BytesIO()
 resized_image.save(buffered, format="PNG")
 img_str = base64.b64encode(buffered.getvalue()).decode()
 
-# Adicionar a imagem de fundo com gradiente
+# Adicionar a imagem de fundo (sem gradiente, apenas a imagem original)
 st.markdown(
     f"""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
     
     .stApp {{
-        background: linear-gradient(to bottom right, #f0f0f5, #800020), 
-                    url(data:image/png;base64,{img_str}) no-repeat center center fixed;
+        background: url(data:image/png;base64,{img_str}) no-repeat center center fixed;
         background-size: cover;
         color: #ffffff;  /* Cor do texto principal */
     }}
