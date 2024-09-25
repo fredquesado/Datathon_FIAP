@@ -48,7 +48,7 @@ st.markdown(
     h1 {{
         font-family: 'Poppins', sans-serif;
         font-weight: 600;
-        color: #007BFF;
+        color: #212529;
         text-shadow: 1px 1px 2px #000;
     }}
     
