@@ -7,12 +7,8 @@ from io import BytesIO
 st.set_page_config(page_title="DataThon", page_icon=":house:", layout='wide')
 st.sidebar.success("Selecione uma página acima.")
 
-# Carregar a imagem e aplicar transparência
+# Carregar a imagem sem aplicar transparência
 image = Image.open("Imagens/capa4.png").convert("RGBA")
-
-# Aplicar transparência diretamente na imagem
-transparency_level = 100  # Defina o nível de transparência (0-255)
-image.putalpha(transparency_level)
 
 # Redimensionar a imagem
 new_width = 1600  # Defina a nova largura desejada
@@ -24,7 +20,7 @@ buffered = BytesIO()
 resized_image.save(buffered, format="PNG")
 img_str = base64.b64encode(buffered.getvalue()).decode()
 
-# Adicionar a imagem de fundo (sem gradiente, apenas a imagem original)
+# Adicionar a imagem de fundo sem transparência
 st.markdown(
     f"""
     <style>
@@ -54,7 +50,7 @@ st.markdown(
     h2 {{
         font-family: 'Poppins', sans-serif;
         font-weight: 400;
-        color: #ffffff;
+        color: black;  /* Texto preto */
         text-align: center;
         font-size: 1.2em;  /* Diminuído para 1.2em */
         margin-bottom: 50px;
